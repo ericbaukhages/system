@@ -24,6 +24,12 @@ If you already have Nix with flakes enabled:
 nix run home-manager -- switch --flake github:ericbaukhages/system#eric
 ```
 
+To apply the local checkout instead of the GitHub version:
+
+```bash
+nix run home-manager -- switch --flake .#eric
+```
+
 Or install Nix and apply the config in one step:
 
 ```bash
