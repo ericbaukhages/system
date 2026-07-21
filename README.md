@@ -65,6 +65,28 @@ nix build .#nixosConfigurations.iso.config.system.build.isoImage
 
 TODO: add the nix-darwin one-liner installer.
 
+## Making changes
+
+Configs for user-level programs live under `home/`. For example, Neovim settings are in `home/neovim.nix`.
+
+To change a setting:
+
+1. Edit the relevant file in `home/`.
+2. Apply the local checkout with the appropriate flake command:
+
+   ```bash
+   nix run home-manager -- switch --flake .#eric        # Linux
+   nix run home-manager -- switch --flake .#eric-darwin # macOS
+   ```
+
+   On NixOS, run:
+
+   ```bash
+   sudo nixos-rebuild switch --flake .
+   ```
+
+These commands must be run from the repo root (where `flake.nix` lives).
+
 ## Secrets
 
 TODO: decide on sops-nix, agenix, or another secrets management approach.
