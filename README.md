@@ -100,6 +100,14 @@ These commands must be run from the repo root (where `flake.nix` lives).
 
 TODO: decide on sops-nix, agenix, or another secrets management approach.
 
+## TODO
+
+- [ ] Decide on and implement a secrets management approach (sops-nix or agenix)
+- [ ] Add a nix-darwin configuration and `mkDarwinConfig` helper in `flake.nix`
+- [ ] Add an ISO installer configuration
+- [ ] Fill in `scripts/` with bootstrap/installer scripts
+- [ ] Add CI checks (e.g. `nix flake check`) on push
+
 ## Notes
 
 - This is a work in progress. Expect rough edges while the structure settles.
