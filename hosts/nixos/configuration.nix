@@ -91,37 +91,11 @@
 
   # Install firefox and some others.
   programs.firefox.enable = true;
-  programs.git.enable = true;
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
 
-  programs.zsh = {
-    enable = true;
-
-    enableCompletion = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-
-    enableZshIntegration = true;
-  };
-
-  programs.fzf = {
-    fuzzyCompletion = true;
-    keybindings = true;
-  };
-
-  programs.tmux = {
-    enable = true;
-  };
-
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-    viAlias = true;
-    defaultEditor = true;
-  };
+  # Enable zsh system-wide so it can be used as a login shell.
+  programs.zsh.enable = true;
 
   services.tailscale.enable = true;
 
@@ -149,16 +123,10 @@
   environment.systemPackages = with pkgs; [
     curl
     dig
-    fd
-    fzf
-    htop
     lua-language-server
     nixd
     nixfmt
     opencode
-    ripgrep
-    tig
-    tree
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

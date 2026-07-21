@@ -12,20 +12,22 @@
 
   outputs = { self, nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      mkHome = system: home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./home ];
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";
         modules = [
           ./hosts/nixos/configuration.nix
         ];
       };
 
-      homeConfigurations.eric = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home ];
+      homeConfigurations = {
+        eric = mkHome "x86_64-linux";
+        eric-darwin = mkHome "aarch64-darwin";
       };
     };
 }

@@ -20,14 +20,23 @@ The goal is to be able to stand up a new machine with a one-liner and have every
 
 If you already have Nix with flakes enabled:
 
+**Linux:**
+
 ```bash
 nix run home-manager -- switch --flake github:ericbaukhages/system#eric
+```
+
+**macOS (Apple Silicon):**
+
+```bash
+nix run home-manager -- switch --flake github:ericbaukhages/system#eric-darwin
 ```
 
 To apply the local checkout instead of the GitHub version:
 
 ```bash
-nix run home-manager -- switch --flake .#eric
+nix run home-manager -- switch --flake .#eric        # Linux
+nix run home-manager -- switch --flake .#eric-darwin # macOS
 ```
 
 Or install Nix and apply the config in one step:
