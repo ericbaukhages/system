@@ -1,13 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
 in
 {
-  home.username = "eric";
-  home.homeDirectory = if isDarwin then "/Users/eric" else "/home/eric";
+  home.username = vars.userName;
+  home.homeDirectory = if isDarwin then "/Users/${vars.userName}" else "/home/${vars.userName}";
   home.stateVersion = "26.05";
-
 
   imports = [
     ./packages.nix

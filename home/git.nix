@@ -1,12 +1,12 @@
-{ config, ... }:
+{ vars, ... }:
 
 {
   programs.git = {
     enable = true;
 
     settings.user = {
-      name = "Eric Baukhages";
-      email = "eric.baukhages@gmail.com";
+      name = vars.fullName;
+      email = vars.userEmail;
     };
 
     settings.init.defaultBranch = "main";
