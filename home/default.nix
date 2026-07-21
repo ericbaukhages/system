@@ -11,9 +11,14 @@ in
   imports = [
     ./packages.nix
     ./git.nix
+    ./ssh.nix
     ./shell.nix
     ./neovim.nix
   ];
+
+  home.sessionVariables = {
+    SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
+  };
 
   # Let home-manager install and manage itself.
   programs.home-manager.enable = true;
