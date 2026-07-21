@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 
 {
   programs.neovim = {
@@ -33,6 +33,27 @@
 
       vim.diagnostic.config({
         virtual_text = true,
+      })
+
+      vim.api.nvim_create_autocmd("BufReadPost", {
+        pattern = os.getenv("HOME") .. "/*",
+        callback = function(args)
+          local real = vim.fn.resolve(args.file)
+          if not real:match("^/nix/store/") then
+            return
+          end
+
+          local msg = "🔒 MANAGED BY HOME-MANAGER — edit source at ${vars.repoPath}/home/"
+          local lines = vim.api.nvim_buf_get_lines(0, 0, 1, false)
+          if lines[1] == msg then
+            return
+          end
+
+          vim.bo.modifiable = true
+          vim.api.nvim_buf_set_lines(0, 0, 0, false, { msg, "" })
+          vim.bo.modifiable = false
+          vim.bo.readonly = true
+        end,
       })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover)

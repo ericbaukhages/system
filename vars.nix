@@ -5,4 +5,5 @@
   timeZone = "America/New_York";
   defaultLocale = "en_US.UTF-8";
   domain = "example.com";
+  repoPath = "/home/eric/Projects/system";
 }
