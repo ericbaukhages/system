@@ -8,8 +8,6 @@ in
   home.homeDirectory = if isDarwin then "/Users/eric" else "/home/eric";
   home.stateVersion = "26.05";
 
-  # Backup existing files instead of failing when they already exist.
-  home.backupFileExtension = "backup";
 
   imports = [
     ./packages.nix
