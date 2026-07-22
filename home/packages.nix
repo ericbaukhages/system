@@ -5,6 +5,8 @@
     fd
     fzf
     htop
+    just
+    nerd-fonts.iosevka-term
     ripgrep
     tig
     tree

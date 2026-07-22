@@ -14,6 +14,7 @@ in
     ./ssh.nix
     ./shell.nix
     ./neovim.nix
+    ./kitty.nix
   ];
 
   home.sessionVariables = {
