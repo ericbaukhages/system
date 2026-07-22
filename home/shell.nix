@@ -72,7 +72,6 @@
   programs.tmux = {
     enable = true;
     mouse = true;
-    prefix = "C-a";
     extraConfig = ''
       set -g default-terminal "screen-256color"
     '';
