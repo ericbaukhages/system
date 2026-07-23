@@ -23,4 +23,17 @@ in
 
   # Let home-manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Make Home Manager-installed .desktop files visible to GNOME.
+  xdg.enable = true;
+
+  # Remap GNOME "Run a Command" away from Alt+F2 so function keys stay free.
+  dconf.settings = {
+    "org/gnome/desktop/wm/keybindings" = {
+      "panel-run-dialog" = [ "<Super>space" ];
+      # Unbind input-source switching so it doesn't clash with Super+Space.
+      "switch-input-source" = [ ];
+      "switch-input-source-backward" = [ ];
+    };
+  };
 }
