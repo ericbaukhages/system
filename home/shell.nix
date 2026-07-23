@@ -82,6 +82,7 @@
     enableZshIntegration = true;
 
     settings = {
+      add_newline = false;
       format = "$character$directory$git_branch$git_status";
 
       character = {
@@ -104,19 +105,6 @@
         format = "([$all_status$ahead_behind](bold yellow) )";
       };
 
-      # Use plain Unicode symbols instead of Nerd Font glyphs.
-      # https://starship.rs/presets/no-nerd-font
-      azure.symbol = "☁️ ";
-      battery = {
-        full_symbol = "• ";
-        charging_symbol = "⇡ ";
-        discharging_symbol = "⇣ ";
-        unknown_symbol = "❓ ";
-        empty_symbol = "❗ ";
-      };
-      erlang.symbol = "ⓔ ";
-      nodejs.symbol = "[⬢](bold green) ";
-      pulumi.symbol = "🧊 ";
     };
   };
 }

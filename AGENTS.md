@@ -59,5 +59,5 @@ just fmt           # nixfmt .
 ## Notes
 
 - `nixd` is configured for Nix LSP support in Neovim.
-- `starship` uses plain Unicode symbols (no Nerd Font).
+- `starship` uses Nerd Font glyphs (via `nerd-fonts.iosevka-term`).
 - `tmux` prefix is `C-a`, mouse is enabled, and `default-terminal` is set to `screen-256color`.
