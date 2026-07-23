@@ -96,7 +96,7 @@
       };
 
       git_branch = {
-        format = "[git:(](bold blue)[$branch](bold red)[)](bold blue) ";
+        format = "[git:\\(](bold blue)[$branch](bold red)[\\)](bold blue) ";
         symbol = "";
       };
 
