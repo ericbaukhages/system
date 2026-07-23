@@ -10,21 +10,31 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     let
       vars = import ./vars.nix;
 
-      mkHome = system: home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = { inherit vars; };
-        modules = [ ./home ];
-      };
+      mkHome =
+        system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = { inherit vars; };
+          modules = [ ./home ];
+        };
 
-      mkNixOS = host: system: nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit vars; };
-        modules = [ ./hosts/${host}/configuration.nix ];
-      };
+      mkNixOS =
+        host: system:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit vars; };
+          modules = [ ./hosts/${host}/configuration.nix ];
+        };
     in
     {
       nixosConfigurations.nixos = mkNixOS "nixos" "x86_64-linux";
