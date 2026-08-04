@@ -7,6 +7,10 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
+-- vim-flagship
+vim.opt.laststatus = 2
+vim.opt.showtabline = 2
+
 vim.lsp.config("nixd", {
   cmd = { "nixd" },
   filetypes = { "nix" },
