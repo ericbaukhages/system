@@ -18,7 +18,7 @@ This repository is a Nix flake that manages NixOS hosts and user dotfiles with h
 - `home/default.nix` — entry point. Sets `home.stateVersion = "26.05"`, imports the other modules, and wires `programs.home-manager.enable = true`.
 - `home/packages.nix` — packages installed via `home.packages`.
 - `home/shell.nix` — zsh, zoxide, fzf, tmux, starship.
-- `home/neovim.nix` — neovim with `nixd` and `nixfmt`.
+- `home/neovim/default.nix` — neovim with `nixd` and `nixfmt`. Loads `home/neovim/init.lua` via `builtins.readFile` + `pkgs.replaceVars` (use `@var@` placeholders in the Lua for Nix-side values like `repoPath`). New files must be `git add`ed before the flake can see them.
 - `home/kitty.nix` — kitty terminal with IosevkaTerm Nerd Font.
 - `home/git.nix` — git config.
 - `home/ssh.nix` — ssh config.

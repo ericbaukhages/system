@@ -18,7 +18,7 @@ in
     ./git.nix
     ./ssh.nix
     ./shell.nix
-    ./neovim.nix
+    ./neovim
     ./kitty.nix
   ];
 
