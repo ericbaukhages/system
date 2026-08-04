@@ -9,7 +9,7 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
-    options = "ctrl:nocaps";
+    options = "ctrl:nocaps,altwin:swap_lalt_lwin";
   };
 
   services.printing.enable = true;
@@ -36,7 +36,10 @@
       lockAll = true;
       settings = {
         "org/gnome/desktop/input-sources" = {
-          xkb-options = [ "ctrl:nocaps" ];
+          xkb-options = [
+            "ctrl:nocaps"
+            "altwin:swap_lalt_lwin"
+          ];
         };
         "org/gnome/desktop/peripherals/touchpad" = {
           natural-scroll = true;
