@@ -40,5 +40,25 @@ in
       "switch-input-source" = [ ];
       "switch-input-source-backward" = [ ];
     };
+
+    # Enable and configure the quake-terminal extension for a global hotkey
+    # terminal. (kitty's own quick_access_terminal kitten relies on the wlr
+    # layer-shell protocol, which GNOME/Mutter does not implement, so a GNOME
+    # Shell extension is the cleanest Wayland-native approach here.)
+    "org/gnome/shell" = {
+      enabled-extensions = [
+        "quake-terminal@diegodario88.github.io"
+      ];
+    };
+
+    "org/gnome/shell/extensions/quake-terminal" = {
+      terminal-id = "kitty.desktop";
+      terminal-shortcut = [ "<Alt><Shift>F" ];
+      vertical-size = 40;
+      horizontal-size = 100;
+      horizontal-alignment = 2; # centered
+      auto-hide-window = true;
+      skip-taskbar = true;
+    };
   };
 }

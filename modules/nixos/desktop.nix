@@ -27,6 +27,10 @@
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    gnomeExtensions.quake-terminal
+  ];
+
   programs.dconf.profiles.user.databases = [
     {
       lockAll = true;
