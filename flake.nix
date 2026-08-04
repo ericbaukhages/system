@@ -19,6 +19,12 @@
     }:
     let
       vars = import ./vars.nix;
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
 
       mkHome =
         system:
@@ -37,6 +43,8 @@
         };
     in
     {
+      formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
+
       nixosConfigurations.nixos = mkNixOS "nixos" "x86_64-linux";
 
       homeConfigurations = {

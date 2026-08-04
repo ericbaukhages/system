@@ -14,4 +14,4 @@ home-darwin:
     nix run home-manager -- switch --flake .#eric-darwin
 
 fmt:
-    nixfmt .
+    nix fmt
