@@ -1,11 +1,30 @@
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = [[\]]
 
 vim.opt.number = true
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.expandtab = true
+vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
+vim.opt.undofile = true
+
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.smarttab = true
+vim.opt.expandtab = false
 vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+vim.opt.mouse = "a"
+
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+vim.opt.scrolloff = 2
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- vim-flagship
 vim.opt.laststatus = 2
@@ -58,3 +77,6 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+-- Only use <C-a>; <C-e> already works as <End>
+vim.keymap.set("c", "<C-a>", "<Home>", {})
