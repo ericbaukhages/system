@@ -14,7 +14,6 @@ The goal is to be able to stand up a new machine with a one-liner and have every
 | `home/` | Reusable home-manager modules (shell, editor, git, etc.) |
 | `modules/` | Shared NixOS/system modules |
 | `justfile` | Common commands for rebuilding, checking, and applying configurations |
-| `scripts/` | Bootstrap and installer scripts |
 
 ## Quick start
 
@@ -41,14 +40,6 @@ nix run home-manager -- switch --flake .#eric        # Linux
 nix run home-manager -- switch --flake .#eric-darwin # macOS
 ```
 
-Or install Nix and apply the config in one step:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/ericbaukhages/system/main/scripts/install-home | bash
-```
-
-This only installs the home-manager configuration and does not touch system-level settings.
-
 ### NixOS
 
 On a fresh install, `just` is not yet available. Use the underlying NixOS command first:
@@ -61,12 +52,6 @@ After that, `just` is installed and you can use:
 
 ```bash
 just rebuild
-```
-
-Build a fresh installer image with this config baked in:
-
-```bash
-nix build .#nixosConfigurations.iso.config.system.build.isoImage
 ```
 
 ### macOS
@@ -105,13 +90,14 @@ TODO: decide on sops-nix, agenix, or another secrets management approach.
 - [ ] Decide on and implement a secrets management approach (sops-nix or agenix)
 - [ ] Add a nix-darwin configuration and `mkDarwinConfig` helper in `flake.nix`
 - [ ] Add an ISO installer configuration
-- [ ] Fill in `scripts/` with bootstrap/installer scripts
+- [ ] Add a `scripts/` directory with bootstrap/installer scripts (e.g. `scripts/install-home` for a one-shot Nix + home-manager setup)
 - [ ] Add CI checks (e.g. `nix flake check`) on push
 
 ## Notes
 
 - This is a work in progress. Expect rough edges while the structure settles.
 - Right now the flake targets `nixos-26.05`.
+- Parts of this repository were written or refined with the help of AI coding assistants (e.g. OpenCode, Codex).
 
 ## Inspiration
 
