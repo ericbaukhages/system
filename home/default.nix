@@ -53,7 +53,7 @@ in
 
     "org/gnome/shell/extensions/quake-terminal" = {
       terminal-id = "kitty.desktop";
-      terminal-shortcut = [ "<Alt><Shift>F" ];
+      terminal-shortcut = [ "<Super><Shift>F" ];
       vertical-size = 40;
       horizontal-size = 100;
       horizontal-alignment = 2; # centered
