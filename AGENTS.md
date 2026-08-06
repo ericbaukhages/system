@@ -43,6 +43,13 @@ just fmt           # nixfmt .
 - `home.sessionVariables.SSH_AUTH_SOCK` points to `~/.1password/agent.sock`.
 - The repo is in active development; the README has a TODO list including secrets management, nix-darwin, and CI.
 
+## Documentation and attribution
+
+- Keep process, design, and learning notes in `docs/`.
+- When research or code draws on external sources — repositories, videos, articles, forum posts, or individual people — document the source with a direct link and, when possible, a named credit.
+- Agent-generated work is rarely a straight copy, but it is still built from other people's ideas. If a file or decision is inspired by outside material, say so. This applies to code, config, and documentation.
+- If a new `docs/` file is created, review it for missing citations before considering the work complete.
+
 ## Adding a new user-level program
 
 1. Create a new module in `home/<program>.nix` (or add to an existing one).
