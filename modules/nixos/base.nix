@@ -14,9 +14,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
-
   time.timeZone = vars.timeZone;
 
   i18n.defaultLocale = vars.defaultLocale;
@@ -36,7 +33,6 @@
     isNormalUser = true;
     description = vars.fullName;
     extraGroups = [
-      "networkmanager"
       "wheel"
     ];
     shell = pkgs.zsh;

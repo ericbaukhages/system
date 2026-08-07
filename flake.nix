@@ -45,7 +45,7 @@
     {
       formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
 
-      nixosConfigurations.nixos = mkNixOS "nixos" "x86_64-linux";
+      nixosConfigurations.t490s = mkNixOS "t490s" "x86_64-linux";
 
       homeConfigurations = {
         eric = mkHome "x86_64-linux";

@@ -2,7 +2,7 @@ default:
     just --list
 
 rebuild:
-    sudo nixos-rebuild switch --flake .
+    sudo nixos-rebuild switch --flake .#t490s
 
 check:
     nix flake check --all-systems
