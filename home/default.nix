@@ -20,6 +20,7 @@ in
     ./shell.nix
     ./neovim
     ./kitty.nix
+    ./opencode.nix
   ];
 
   home.sessionVariables = {

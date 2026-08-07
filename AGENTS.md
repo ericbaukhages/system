@@ -22,6 +22,9 @@ This repository is a Nix flake that manages NixOS hosts and user dotfiles with h
 - `home/kitty.nix` — kitty terminal with IosevkaTerm Nerd Font.
 - `home/git.nix` — git config.
 - `home/ssh.nix` — ssh config.
+- `home/opencode.nix` — opencode global configuration and wiring. Emits config, skills, and agents under `~/.config/opencode/`.
+- `home/skills/<name>/` — harness-agnostic reusable skill prompts (`PROMPT.md` + `meta.nix`).
+- `home/agents/<name>/` — harness-agnostic reusable agent prompts (`PROMPT.md` + `meta.nix`).
 
 ## Common commands
 
