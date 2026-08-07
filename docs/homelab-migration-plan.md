@@ -122,6 +122,14 @@ Existing modules reused as-is:
 | Secrets | Deferred | No secrets yet; add `sops-nix` when Caddy DNS challenges or app secrets are needed. |
 | Tailscale auth | Manual login | No auth key needed for initial setup. |
 
+## TODOs
+
+- Decide on a deployment recipe for the `x250` in the `justfile`. Options:
+  - Local `nixos-rebuild build --flake .#x250` for verification only.
+  - SSH target deploy: `nixos-rebuild switch --flake .#x250 --target-host x250`.
+  - Remote switch over SSH: `ssh x250 "sudo nixos-rebuild switch --flake .#x250"`.
+  The recipe should probably be context-aware or explicitly target the remote host.
+
 ## Future work
 
 - Add `sops-nix` for encrypted secrets (Tailscale auth keys, Caddy DNS challenge tokens, app credentials).
