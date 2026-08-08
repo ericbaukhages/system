@@ -1,3 +1,12 @@
+---
+title: "macOS-style Super key on NixOS / GNOME"
+type: plan
+status: proposed
+created: 2026-08-07
+updated: 2026-08-07
+tags: [nixos, gnome, keyd, input, keyboard, macos]
+---
+
 # macOS-style Super key on NixOS / GNOME
 
 Goal: make the physical left Alt key on a PC keyboard act like a Mac Command

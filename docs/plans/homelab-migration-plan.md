@@ -1,4 +1,17 @@
+---
+title: "Homelab migration plan: NixOS on the ThinkPad X250"
+type: plan
+status: implemented
+created: 2026-08-07
+updated: 2026-08-07
+tags: [nixos, homelab, x250, t490s, caddy, podman, tailscale]
+---
+
 # Homelab migration plan: NixOS on the ThinkPad X250
+
+> Status: **implemented**. This document is now a retrospective record of the
+> migration. The X250 host, role modules, and justfile recipes described here
+> are in place; update this doc if the setup diverges from what is recorded.
 
 ## Goal
 

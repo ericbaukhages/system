@@ -1,3 +1,12 @@
+---
+title: "Development Workflow"
+type: reference
+status: draft
+created: 2026-08-08
+updated: 2026-08-08
+tags: [ai, workflow, collaboration, conventions]
+---
+
 # Development Workflow
 
 > General directive for AI/human collaboration on software projects.

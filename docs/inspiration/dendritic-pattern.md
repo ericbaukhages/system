@@ -1,3 +1,12 @@
+---
+title: "The Dendritic Pattern for Nix Configurations"
+type: research
+status: proposed
+created: 2026-08-05
+updated: 2026-08-05
+tags: [nix, dendritic, flake-parts, import-tree, architecture]
+---
+
 # The Dendritic Pattern for Nix Configurations
 
 > A working document for this repository. It explains the dendritic pattern,
