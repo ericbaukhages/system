@@ -24,6 +24,9 @@ let
     instructions = [
       "${config.home.homeDirectory}/.config/opencode/instructions/global.md"
     ];
+
+    # Enable LSP support (built-in language servers).
+    lsp = true;
   };
 
   # Discover immediate subdirectories under a path.
