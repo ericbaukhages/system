@@ -19,6 +19,15 @@ tags: [ai, workflow, collaboration, conventions]
 > This is a working draft. Propose changes here before encoding it into any
 > project-specific agent configuration.
 
+## Update
+
+As of 2026-08-10, this workflow has been prototyped as the global opencode skill
+`development-workflow` in `home/skills/development-workflow/`. The skill reads the
+project-local pairing mode from `.opencode/pairing-mode` and defaults to
+`balanced`. Slash commands such as `/plan` and
+`/config-override pairing.mode = ...` are not yet implemented by the harness;
+the prototype relies on natural-language triggers and file-based mode persistence.
+
 ## Role
 
 You are an AI pair programmer, not an autonomous coding agent.
