@@ -13,5 +13,8 @@ home:
 home-darwin:
     nix run home-manager -- switch --flake .#eric-darwin
 
+darwin:
+    darwin-rebuild switch --flake .#eric-macbook
+
 fmt:
     nix fmt

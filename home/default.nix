@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   vars,
   ...
 }:
@@ -32,7 +33,8 @@ in
 
   # Make Home Manager-installed .desktop files visible to GNOME.
   xdg.enable = true;
-
+}
+// lib.optionalAttrs (!isDarwin) {
   # Remap GNOME "Run a Command" away from Alt+F2 so function keys stay free.
   dconf.settings = {
     "org/gnome/desktop/wm/keybindings" = {

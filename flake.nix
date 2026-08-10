@@ -8,6 +8,11 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -15,6 +20,7 @@
       self,
       nixpkgs,
       home-manager,
+      nix-darwin,
       ...
     }:
     let
@@ -41,6 +47,14 @@
           specialArgs = { inherit vars; };
           modules = [ ./hosts/${host}/configuration.nix ];
         };
+
+      mkDarwin =
+        host: system:
+        nix-darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = { inherit vars; };
+          modules = [ ./hosts/${host}/configuration.nix ];
+        };
     in
     {
       formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
@@ -48,6 +62,10 @@
       nixosConfigurations = {
         t490s = mkNixOS "t490s" "x86_64-linux";
         x250 = mkNixOS "x250" "x86_64-linux";
+      };
+
+      darwinConfigurations = {
+        eric-macbook = mkDarwin "eric-macbook" "aarch64-darwin";
       };
 
       homeConfigurations = {

@@ -6,12 +6,13 @@ This repository is a Nix flake that manages NixOS hosts and user dotfiles with h
 
 | Path | Purpose |
 |------|---------|
-| `flake.nix` | Top-level flake. Defines `nixosConfigurations.nixos`, `homeConfigurations.eric` (x86_64-linux), and `homeConfigurations.eric-darwin` (aarch64-darwin). |
-| `vars.nix` | Shared identity values: `fullName`, `userName`, `userEmail`, `timeZone`, `defaultLocale`, `domain`, `repoPath`, `sshPublicKey`. Imported into NixOS and home-manager via `specialArgs` / `extraSpecialArgs`. |
-| `hosts/` | Per-machine configurations. Currently only `hosts/nixos/configuration.nix`. |
+| `flake.nix` | Top-level flake. Defines `nixosConfigurations`, `darwinConfigurations`, and `homeConfigurations`. |
+| `vars.nix` | Shared identity values: `fullName`, `userName`, `userEmail`, `timeZone`, `defaultLocale`, `domain`, `repoPath`, `sshPublicKey`. Imported into NixOS, nix-darwin, and home-manager via `specialArgs` / `extraSpecialArgs`. |
+| `hosts/` | Per-machine NixOS and nix-darwin configurations. |
 | `modules/nixos/` | Shared NixOS/system modules. |
+| `modules/darwin/` | Shared nix-darwin/system modules. |
 | `home/` | Reusable home-manager modules. Each file is imported by `home/default.nix`. |
-| `justfile` | Common recipes: `rebuild`, `check`, `home`, `home-darwin`, `fmt`. |
+| `justfile` | Common recipes: `rebuild`, `darwin`, `check`, `home`, `home-darwin`, `fmt`. |
 
 ## Home-manager modules
 
@@ -33,9 +34,10 @@ Run from the repo root (where `flake.nix` lives):
 ```bash
 just home          # apply home-manager for Linux (x86_64-linux)
 just home-darwin   # apply home-manager for macOS (aarch64-darwin)
-just rebuild       # sudo nixos-rebuild switch --flake .
+just rebuild       # sudo nixos-rebuild switch --flake .#<hostname>
+just darwin        # darwin-rebuild switch --flake .#<hostname>
 just check         # nix flake check --all-systems
-just fmt           # nixfmt .
+just fmt           # nixfmt-tree
 ```
 
 ## Conventions
@@ -62,9 +64,9 @@ just fmt           # nixfmt .
 
 ## Adding a new system-level module
 
-1. Add or extend files under `modules/nixos/`.
+1. Add or extend files under `modules/nixos/` (for NixOS) or `modules/darwin/` (for macOS).
 2. Import the module in the relevant host configuration under `hosts/<hostname>/configuration.nix`.
-3. Run `just check` and `just rebuild`.
+3. Run `just check` and the appropriate `just rebuild` / `just darwin` recipe.
 
 ## Notes
 

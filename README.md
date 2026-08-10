@@ -12,7 +12,8 @@ The goal is to be able to stand up a new machine with a one-liner and have every
 | `vars.nix` | Shared user/domain/timezone/identity values used across hosts and home-manager |
 | `hosts/` | Per-machine NixOS and nix-darwin configurations |
 | `home/` | Reusable home-manager modules (shell, editor, git, etc.) |
-| `modules/` | Shared NixOS/system modules |
+| `modules/nixos/` | Shared NixOS/system modules |
+| `modules/darwin/` | Shared nix-darwin/system modules |
 | `justfile` | Common commands for rebuilding, checking, and applying configurations |
 
 ## Quick start
@@ -56,7 +57,17 @@ just rebuild
 
 ### macOS
 
-TODO: add the nix-darwin one-liner installer.
+After nix-darwin is installed, apply the system configuration:
+
+```bash
+just darwin
+```
+
+And the home-manager dotfiles:
+
+```bash
+just home-darwin
+```
 
 ## Making changes
 
@@ -73,6 +84,7 @@ To change a setting:
    just home        # Linux home-manager
    just home-darwin # macOS home-manager
    just rebuild     # NixOS
+   just darwin      # macOS system config
    ```
 
 These commands must be run from the repo root (where `flake.nix` lives).
@@ -88,7 +100,7 @@ TODO: decide on sops-nix, agenix, or another secrets management approach.
 ## TODO
 
 - [ ] Decide on and implement a secrets management approach (sops-nix or agenix)
-- [ ] Add a nix-darwin configuration and `mkDarwinConfig` helper in `flake.nix`
+- [x] Add a nix-darwin configuration and `mkDarwinConfig` helper in `flake.nix`
 - [ ] Add an ISO installer configuration
 - [ ] Add a `scripts/` directory with bootstrap/installer scripts (e.g. `scripts/install-home` for a one-shot Nix + home-manager setup)
 - [ ] Add CI checks (e.g. `nix flake check`) on push
