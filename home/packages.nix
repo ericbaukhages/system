@@ -11,5 +11,7 @@
     ripgrep
     tig
     tree
+    typescript-language-server
+    vscode-langservers-extracted
   ];
 }

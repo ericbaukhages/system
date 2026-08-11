@@ -46,6 +46,42 @@ vim.lsp.config("nixd", {
 
 vim.lsp.enable("nixd")
 
+vim.lsp.config("ts_ls", {
+	cmd = { "typescript-language-server", "--stdio" },
+	filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	},
+	root_markers = { "package.json", "tsconfig.json", ".git" },
+})
+
+vim.lsp.enable("ts_ls")
+
+vim.lsp.config("html", {
+	cmd = { "vscode-html-language-server", "--stdio" },
+	filetypes = { "html" },
+})
+
+vim.lsp.enable("html")
+
+vim.lsp.config("cssls", {
+	cmd = { "vscode-css-language-server", "--stdio" },
+	filetypes = { "css", "scss", "less" },
+})
+
+vim.lsp.enable("cssls")
+
+vim.lsp.config("jsonls", {
+	cmd = { "vscode-json-language-server", "--stdio" },
+	filetypes = { "json", "jsonc" },
+})
+
+vim.lsp.enable("jsonls")
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
