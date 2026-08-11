@@ -15,7 +15,7 @@
     history = {
       path = "${config.home.homeDirectory}/.zsh_history";
       size = 10000;
-      save = 10000000000;
+      save = 100000;
     };
 
     shellAliases = {

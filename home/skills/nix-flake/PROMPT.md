@@ -4,9 +4,9 @@ This repository manages NixOS hosts and home-manager user dotfiles with a Nix fl
 
 ## Layout
 
-- `flake.nix` — top-level flake; defines `nixosConfigurations.nixos`, `homeConfigurations.eric` (x86_64-linux), and `homeConfigurations.eric-darwin` (aarch64-darwin).
-- `vars.nix` — shared identity values (`fullName`, `userName`, `userEmail`, `timeZone`, `defaultLocale`, `domain`, `repoPath`, `sshPublicKey`).
-- `hosts/` — per-machine configurations. Currently `hosts/nixos/configuration.nix`.
+- `flake.nix` — top-level flake; defines `nixosConfigurations.t490s`, `nixosConfigurations.x250`, `darwinConfigurations.eric-macbook`, `homeConfigurations.eric` (x86_64-linux), and `homeConfigurations.eric-darwin` (aarch64-darwin).
+- `vars.nix` — shared identity values (`fullName`, `userName`, `userEmail`, `timeZone`, `defaultLocale`, `domain`, `sshPublicKey`).
+- `hosts/` — per-machine configurations. Currently `hosts/t490s/`, `hosts/x250/`, and `hosts/eric-macbook/`.
 - `modules/nixos/` — shared NixOS/system modules.
 - `home/` — reusable home-manager modules, all imported by `home/default.nix`.
 - `justfile` — common recipes.
@@ -15,9 +15,9 @@ This repository manages NixOS hosts and home-manager user dotfiles with a Nix fl
 
 - `just home` — apply home-manager for Linux (x86_64-linux).
 - `just home-darwin` — apply home-manager for macOS (aarch64-darwin).
-- `just rebuild` — `sudo nixos-rebuild switch --flake .`.
+- `just rebuild` — `sudo nixos-rebuild switch --flake .#t490s`.
 - `just check` — `nix flake check --all-systems`.
-- `just fmt` — format with `nixfmt-tree`.
+- `just fmt` — `nix fmt` (uses `nixfmt-tree`).
 
 ## Conventions
 

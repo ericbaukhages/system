@@ -33,10 +33,12 @@ in
 
   # Make Home Manager-installed .desktop files visible to GNOME.
   xdg.enable = true;
-}
-// lib.optionalAttrs (!isDarwin) {
-  # Remap GNOME "Run a Command" away from Alt+F2 so function keys stay free.
-  dconf.settings = {
+
+  # GNOME/dconf settings only apply on Linux. Use mkIf so the module structure
+  # does not depend on pkgs during argument resolution (avoids infinite
+  # recursion when home-manager evaluates the module).
+  dconf.settings = lib.mkIf (!isDarwin) {
+    # Remap GNOME "Run a Command" away from Alt+F2 so function keys stay free.
     "org/gnome/desktop/wm/keybindings" = {
       "panel-run-dialog" = [ "<Super>space" ];
       # Unbind input-source switching so it doesn't clash with Super+Space.

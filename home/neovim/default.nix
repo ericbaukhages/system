@@ -28,7 +28,7 @@
 
     initLua = builtins.readFile (
       pkgs.replaceVars ./init.lua {
-        inherit (vars) repoPath;
+        repoPath = "${config.home.homeDirectory}/Projects/system";
       }
     );
   };

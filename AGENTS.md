@@ -7,7 +7,7 @@ This repository is a Nix flake that manages NixOS hosts and user dotfiles with h
 | Path | Purpose |
 |------|---------|
 | `flake.nix` | Top-level flake. Defines `nixosConfigurations`, `darwinConfigurations`, and `homeConfigurations`. |
-| `vars.nix` | Shared identity values: `fullName`, `userName`, `userEmail`, `timeZone`, `defaultLocale`, `domain`, `repoPath`, `sshPublicKey`. Imported into NixOS, nix-darwin, and home-manager via `specialArgs` / `extraSpecialArgs`. |
+| `vars.nix` | Shared identity values: `fullName`, `userName`, `userEmail`, `timeZone`, `defaultLocale`, `domain`, `sshPublicKey`. Imported into NixOS, nix-darwin, and home-manager via `specialArgs` / `extraSpecialArgs`. |
 | `hosts/` | Per-machine NixOS and nix-darwin configurations. |
 | `modules/nixos/` | Shared NixOS/system modules. |
 | `modules/darwin/` | Shared nix-darwin/system modules. |
@@ -19,7 +19,7 @@ This repository is a Nix flake that manages NixOS hosts and user dotfiles with h
 - `home/default.nix` — entry point. Sets `home.stateVersion = "26.05"`, imports the other modules, and wires `programs.home-manager.enable = true`.
 - `home/packages.nix` — packages installed via `home.packages`.
 - `home/shell.nix` — zsh, zoxide, fzf, tmux, starship.
-- `home/neovim/default.nix` — neovim with `nixd` and `nixfmt`. Loads `home/neovim/init.lua` via `builtins.readFile` + `pkgs.replaceVars` (use `@var@` placeholders in the Lua for Nix-side values like `repoPath`). New files must be `git add`ed before the flake can see them.
+- `home/neovim/default.nix` — neovim with `nixd` and `nixfmt`. Loads `home/neovim/init.lua` via `builtins.readFile` + `pkgs.replaceVars` (use `@var@` placeholders in the Lua for Nix-side values like the repository path). New files must be `git add`ed before the flake can see them.
 - `home/kitty.nix` — kitty terminal with IosevkaTerm Nerd Font.
 - `home/git.nix` — git config.
 - `home/ssh.nix` — ssh config.
@@ -37,7 +37,7 @@ just home-darwin   # apply home-manager for macOS (aarch64-darwin)
 just rebuild       # sudo nixos-rebuild switch --flake .#<hostname>
 just darwin        # darwin-rebuild switch --flake .#<hostname>
 just check         # nix flake check --all-systems
-just fmt           # nixfmt-tree
+just fmt           # nix fmt (uses nixfmt-tree)
 ```
 
 ## Conventions
@@ -82,4 +82,4 @@ If the user explicitly asks to skip attribution for a specific commit, honor tha
 
 - `nixd` is configured for Nix LSP support in Neovim.
 - `starship` uses Nerd Font glyphs (via `nerd-fonts.iosevka-term`).
-- `tmux` prefix is `C-a`, mouse is enabled, and `default-terminal` is set to `screen-256color`.
+- `tmux` prefix is the default `C-b`, mouse is enabled, and `default-terminal` is set to `screen-256color`.

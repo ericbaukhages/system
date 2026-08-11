@@ -292,17 +292,29 @@ Our current repository is a simpler, more traditional flake.
 ### Current layout
 
 ```
-flake.nix              # entry point, defines NixOS + home configs
-vars.nix               # shared values, passed via specialArgs
+flake.nix              # entry point, defines NixOS + nix-darwin + home configs
+vars.nix               # shared values, passed via specialArgs / extraSpecialArgs
 hosts/
-  nixos/
-    configuration.nix  # imports NixOS modules
+  t490s/
+    configuration.nix  # workstation: imports base, workstation, desktop, packages, tailscale
     hardware-configuration.nix
-modules/nixos/
-  base.nix
-  desktop.nix
-  packages.nix
-  tailscale.nix
+  x250/
+    configuration.nix  # server/homelab: imports base, server, packages, tailscale, caddy, podman
+    hardware-configuration.nix
+  eric-macbook/
+    configuration.nix  # nix-darwin: imports modules/darwin/base.nix
+modules/
+  nixos/
+    base.nix
+    desktop.nix
+    packages.nix
+    tailscale.nix
+    workstation.nix
+    server.nix
+    caddy.nix
+    podman.nix
+  darwin/
+    base.nix
 home/
   default.nix          # imports home modules
   packages.nix
@@ -311,6 +323,8 @@ home/
   ssh.nix
   kitty.nix
   opencode.nix
+  skills/              # harness-agnostic reusable skill prompts
+  agents/              # harness-agnostic reusable agent prompts
   neovim/
     default.nix
     init.lua
@@ -320,9 +334,11 @@ home/
 
 ```nix
 {
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, nix-darwin, ... }:
     let
       vars = import ./vars.nix;
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
       mkHome = system: home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { inherit vars; };
@@ -333,9 +349,20 @@ home/
         specialArgs = { inherit vars; };
         modules = [ ./hosts/${host}/configuration.nix ];
       };
+      mkDarwin = host: system: nix-darwin.lib.darwinSystem {
+        inherit system;
+        specialArgs = { inherit vars; };
+        modules = [ ./hosts/${host}/configuration.nix ];
+      };
     in {
-      formatter = ...;
-      nixosConfigurations.nixos = mkNixOS "nixos" "x86_64-linux";
+      formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
+      nixosConfigurations = {
+        t490s = mkNixOS "t490s" "x86_64-linux";
+        x250 = mkNixOS "x250" "x86_64-linux";
+      };
+      darwinConfigurations = {
+        eric-macbook = mkDarwin "eric-macbook" "aarch64-darwin";
+      };
       homeConfigurations = {
         eric = mkHome "x86_64-linux";
         eric-darwin = mkHome "aarch64-darwin";
@@ -366,7 +393,7 @@ This already works, but it is not dendritic. The differences are:
 | Aspect | Current repo | Dendritic pattern |
 |--------|-------------|-------------------|
 | Entry point | `flake.nix` does the wiring | `flake.nix` only sets up `flake-parts` + `import-tree` |
-| Imports | Manual `imports` lists in `home/default.nix` and `hosts/nixos/configuration.nix` | Automatic via `import-tree` |
+| Imports | Manual `imports` lists in `home/default.nix` and `hosts/<hostname>/configuration.nix` | Automatic via `import-tree` |
 | Sharing values | `vars.nix` passed via `specialArgs`/`extraSpecialArgs` | `vars` is an option in the top-level config; any module reads `config.vars` |
 | Modules | `modules/nixos/*.nix` are direct NixOS modules | `modules/nixos/*.nix` are *top-level* modules that produce NixOS modules via `deferredModule` options |
 | Hosts | `hosts/nixos/configuration.nix` imports system modules | A top-level module declares the NixOS configuration and the modules it uses |

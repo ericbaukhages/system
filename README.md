@@ -14,6 +14,7 @@ The goal is to be able to stand up a new machine with a one-liner and have every
 | `home/` | Reusable home-manager modules (shell, editor, git, etc.) |
 | `modules/nixos/` | Shared NixOS/system modules |
 | `modules/darwin/` | Shared nix-darwin/system modules |
+| `docs/` | Notes, plans, research, and reference material |
 | `justfile` | Common commands for rebuilding, checking, and applying configurations |
 
 ## Quick start
@@ -43,21 +44,21 @@ nix run home-manager -- switch --flake .#eric-darwin # macOS
 
 ### NixOS
 
-On a fresh install, `just` is not yet available. Use the underlying NixOS command first:
+On a fresh install, `just` is not yet available. Use the underlying NixOS command first, replacing `<hostname>` with the target host (`t490s` or `x250`):
 
 ```bash
-sudo nixos-rebuild switch --flake .
+sudo nixos-rebuild switch --flake .#<hostname>
 ```
 
 After that, `just` is installed and you can use:
 
 ```bash
-just rebuild
+just rebuild   # defaults to .#t490s
 ```
 
 ### macOS
 
-After nix-darwin is installed, apply the system configuration:
+The flake includes a nix-darwin configuration for `eric-macbook`. First-time setup still requires the nix-darwin installer to create the system daemon; after that, apply the system configuration:
 
 ```bash
 just darwin
@@ -71,7 +72,7 @@ just home-darwin
 
 ## Making changes
 
-Configs for user-level programs live under `home/`. For example, Neovim settings are in `home/neovim.nix`.
+Configs for user-level programs live under `home/`. For example, Neovim settings are in `home/neovim/default.nix` and `home/neovim/init.lua`.
 
 Shared system settings live under `modules/nixos/`. Per-machine settings live under `hosts/<hostname>/`.
 
