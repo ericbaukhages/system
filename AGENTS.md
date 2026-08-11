@@ -24,8 +24,8 @@ This repository is a Nix flake that manages NixOS hosts and user dotfiles with h
 - `home/git.nix` — git config.
 - `home/ssh.nix` — ssh config.
 - `home/opencode.nix` — opencode global configuration and wiring. Emits config, skills, and agents under `~/.config/opencode/`.
-- `home/skills/<name>/` — harness-agnostic reusable skill prompts (`PROMPT.md` + `meta.nix`).
-- `home/agents/<name>/` — harness-agnostic reusable agent prompts (`PROMPT.md` + `meta.nix`).
+- `home/skills/<name>/` — harness-agnostic reusable skill prompts (`PROMPT.md` + `default.nix`).
+- `home/agents/<name>/` — harness-agnostic reusable agent prompts (`PROMPT.md` + `default.nix`).
 
 ## Common commands
 
@@ -54,6 +54,16 @@ just fmt           # nixfmt-tree
 - When research or code draws on external sources — repositories, videos, articles, forum posts, or individual people — document the source with a direct link and, when possible, a named credit.
 - Agent-generated work is rarely a straight copy, but it is still built from other people's ideas. If a file or decision is inspired by outside material, say so. This applies to code, config, and documentation.
 - If a new `docs/` file is created, review it for missing citations before considering the work complete.
+
+## AI-assisted commits
+
+When an agent executes `git commit` on behalf of a human in this repository, the commit message must disclose that it was assisted by a model. Name the current model in the attribution line, for example:
+
+```
+Assisted-by: opencode-go/kimi-k2.7-code
+```
+
+If the user explicitly asks to skip attribution for a specific commit, honor that exception for that commit only. Enforcement is currently handled by the `commit` skill in `home/skills/commit/`; repo-level automation (e.g., a commit-msg hook or CI check) can be added later if desired.
 
 ## Adding a new user-level program
 
