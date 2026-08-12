@@ -17,7 +17,7 @@ structure so we can track status as we apply changes.
 
 | # | Item | Priority | Status |
 |---|------|----------|--------|
-| 1 | [Mode switching is too manual](#1-mode-switching-is-too-manual) | medium | pending |
+| 1 | [Mode switching is too manual](#1-mode-switching-is-too-manual) | medium | requirements-drafted |
 | 2 | [`ai-led` collides with hard guardrails](#2-ai-led-collides-with-hard-guardrails) | high | applied |
 | 3 | [`human-led` boundaries are fuzzy](#3-human-led-boundaries-are-fuzzy) | high | applied |
 | 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | applied |
@@ -33,7 +33,10 @@ structure so we can track status as we apply changes.
 - **Proposed change:** Add harness support for slash commands such as
   `/config-override pairing.mode = ...` to remove ambiguity. Until then, the AI
   should confirm the switch explicitly and state what behavior changes.
-- **Status:** pending
+- **Status:** requirements-drafted
+- **Note:** Requirements captured in
+  `docs/plans/opencode-harness-requirements.md`. Implementation is blocked on
+  harness/plugin support.
 
 ## 2. `ai-led` collides with hard guardrails
 
