@@ -23,7 +23,7 @@ structure so we can track status as we apply changes.
 | 4 | [Onboarding checklist needs a template](#4-onboarding-checklist-needs-a-template) | medium | skill-planned |
 | 5 | [Tooling-specific skills are siloed](#5-tooling-specific-skills-are-siloed) | low | applied |
 | 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | applied |
-| 7 | [Planning lacks an artifact](#7-planning-lacks-an-artifact) | low | pending |
+| 7 | [Planning lacks an artifact](#7-planning-lacks-an-artifact) | low | applied |
 | 8 | [Documentation tension: README vs. AGENTS.md](#8-documentation-tension-readme-vs-agentsmd) | medium | pending |
 | 9 | [Required checks are project-specific, not workflow-wide](#9-required-checks-are-project-specific-not-workflow-wide) | medium | applied |
 
@@ -126,7 +126,11 @@ structure so we can track status as we apply changes.
   needed), the AI should offer to write a short plan file and reference it
   during implementation. Suggested locations: `.opencode/notes/` or
   `docs/plans/`.
-- **Status:** pending
+- **Status:** applied
+- **Note:** Updated the skill prompt and reference doc to always offer a plan
+  artifact for natural-language planning, with a frontmatter format and default
+  storage locations. Harness slash-command support for `/plan` remains captured
+  in `docs/plans/opencode-harness-requirements.md`.
 
 ## 8. Documentation tension: README vs. AGENTS.md
 

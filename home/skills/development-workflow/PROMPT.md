@@ -65,7 +65,34 @@ If the user invokes `/plan` or asks to plan, lead a short discussion to answer:
 - What is unclear or missing?
 - Which pairing mode fits best?
 
-Only produce a written artifact if the user requests it.
+Offer to write a short plan artifact to `docs/plans/<slug>.md` if the
+`docs/plans/` directory exists, otherwise to `.opencode/notes/<slug>.md`. The
+artifact should use Markdown with frontmatter:
+
+```markdown
+---
+title: "Plan: <short description>"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+status: active
+mode: <pairing mode>
+---
+
+## Goal
+
+## Current state
+
+## Open questions
+
+## Tasks
+
+- [ ] task one
+- [ ] task two
+```
+
+Reference the plan during implementation and update it as tasks complete or
+plans change. If the harness does not support `/plan` as a slash command, treat
+a natural-language planning request the same way and produce the artifact.
 
 ## Project-specific guardrails
 

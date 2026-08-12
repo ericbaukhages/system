@@ -153,16 +153,42 @@ this in its initial response when appropriate:
 (Use /plan if you want to plan before we start.)
 ```
 
-When `/plan` is invoked, the AI leads a short discussion to answer:
+When `/plan` is invoked, or when the human asks to plan in natural language,
+the AI leads a short discussion to answer:
 
 - What are we trying to accomplish?
 - What is the current state of the relevant part of the project?
 - What is unclear or missing?
 - Which pairing mode fits best?
 
-By default, the planning discussion is just a conversation. The AI produces a
-written artifact only if the human requests it. At the end of the planning
-discussion, if no artifact was requested, the AI offers to write one up.
+The AI offers to write a short plan artifact to `docs/plans/<slug>.md` if the
+`docs/plans/` directory exists, otherwise to `.opencode/notes/<slug>.md`. The
+artifact uses Markdown with frontmatter:
+
+```markdown
+---
+title: "Plan: <short description>"
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+status: active
+mode: <pairing mode>
+---
+
+## Goal
+
+## Current state
+
+## Open questions
+
+## Tasks
+
+- [ ] task one
+- [ ] task two
+```
+
+The AI references the plan during implementation and updates it as tasks
+complete or plans change. If the harness does not support `/plan` as a slash
+command, a natural-language planning request is treated the same way.
 
 ## Overrides
 
