@@ -3,7 +3,7 @@ title: "Development Workflow Feedback"
 type: feedback
 status: open
 created: 2026-08-11
-updated: 2026-08-11
+updated: 2026-08-12
 tags: [ai, workflow, collaboration, feedback]
 ---
 
@@ -18,14 +18,10 @@ structure so we can track status as we apply changes.
 | # | Item | Priority | Status |
 |---|------|----------|--------|
 | 1 | [Mode switching is too manual](#1-mode-switching-is-too-manual) | medium | pending |
-| 2 | [`ai-led` collides with hard guardrails](#2-ai-led-collides-with-hard-guardrails) | high | pending |
-| 3 | [`human-led` boundaries are fuzzy](#3-human-led-boundaries-are-fuzzy) | high | pending |
-| 4 | [Onboarding checklist needs a template](#4-onboarding-checklist-needs-a-template) | medium | pending |
-| 5 | [Tooling-specific skills are siloed](#5-tooling-specific-skills-are-siloed) | low | pending |
-| 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | pending |
-| 7 | [Planning lacks an artifact](#7-planning-lacks-an-artifact) | low | pending |
-| 8 | [Documentation tension: README vs. AGENTS.md](#8-documentation-tension-readme-vs-agentsmd) | medium | pending |
-| 9 | [Required checks are project-specific, not workflow-wide](#9-required-checks-are-project-specific-not-workflow-wide) | medium | pending |
+| 2 | [`ai-led` collides with hard guardrails](#2-ai-led-collides-with-hard-guardrails) | high | applied |
+| 3 | [`human-led` boundaries are fuzzy](#3-human-led-boundaries-are-fuzzy) | high | applied |
+| 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | applied |
+| 9 | [Required checks are project-specific, not workflow-wide](#9-required-checks-are-project-specific-not-workflow-wide) | medium | applied |
 
 ## 1. Mode switching is too manual
 
@@ -50,7 +46,7 @@ structure so we can track status as we apply changes.
 - **Proposed change:** Add a "guardrails override" statement at the top of each
   mode description, and list common gates (commit, deploy, data deletion,
   tech-stack change) that always require confirmation regardless of mode.
-- **Status:** pending
+- **Status:** applied
 
 ## 3. `human-led` boundaries are fuzzy
 
@@ -63,7 +59,7 @@ structure so we can track status as we apply changes.
 - **Proposed change:** In `human-led`, the AI should not touch code unless the
   human explicitly asks for the implementation. Review comments should be hints,
   not patches. If the AI does make an edit, it should call it out explicitly.
-- **Status:** pending
+- **Status:** applied
 
 ## 4. Onboarding checklist needs a template
 
@@ -103,7 +99,7 @@ structure so we can track status as we apply changes.
   - before touching guarded files,
   - before any commit or deployment,
   - when a build/lint/test step fails.
-- **Status:** pending
+- **Status:** applied
 
 ## 7. Planning lacks an artifact
 
@@ -141,7 +137,7 @@ structure so we can track status as we apply changes.
 - **Proposed change:** Add a small universal checklist to the workflow skill
   (build passes, dev server healthy, new files staged, no secrets committed)
   that always applies, plus a project-specific extension in `AGENTS.md`.
-- **Status:** pending
+- **Status:** applied
 
 ## Source
 

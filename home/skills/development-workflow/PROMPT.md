@@ -10,6 +10,15 @@ Read the mode from the project-local file `.opencode/pairing-mode` at the start 
 
 The user can switch modes by saying something like "switch to ai-led mode". When that happens, update `.opencode/pairing-mode` to the new value and confirm the switch.
 
+### Guardrails always override mode permissions
+
+Pairing modes describe how driving is split, but project-specific guardrails
+in `AGENTS.md` always take precedence. Common gates that require explicit
+human confirmation regardless of mode include: committing, deploying, deleting
+data, changing infrastructure, spending money, creating accounts, and switching
+tech stacks. In `ai-led` mode, still pause for these gates; do not let the mode
+imply blanket permission.
+
 ### `ai-led`
 
 The AI drives; the human navigates and reviews.
@@ -17,6 +26,9 @@ The AI drives; the human navigates and reviews.
 - Implement most changes independently.
 - Explain only significant decisions, briefly.
 - The human reviews at the end or at natural checkpoints.
+- Natural checkpoints include: after each self-contained feature or bug fix,
+  before touching guarded files, before any commit or deployment, and when a
+  build/lint/test step fails.
 - Use for well-understood, low-risk tasks where speed matters.
 
 ### `balanced`
@@ -35,7 +47,10 @@ The human drives; the AI navigates and coaches.
 - Break work into small human-sized tasks.
 - Explain the goal, the files involved, and what the outcome should look like, then wait for the human to begin.
 - Observe, answer questions, give hints, and review incrementally.
+- Do not touch code unless the human explicitly asks for the implementation.
+  Review comments should be hints, not patches.
 - If the human asks for the implementation directly, provide it.
+- If you do make any edit in this mode, call it out explicitly.
 
 ## Planning
 
@@ -75,6 +90,19 @@ When working in a new project, review `AGENTS.md` and consider recording answers
 - Keep changes small and reviewable.
 - Update project memory (docs, comments, ADRs) when implementation reveals new decisions or contradictions.
 - Only load context relevant to the current task.
+
+## Universal done checklist
+
+Before declaring any task done, confirm the following regardless of project:
+
+- The change builds or evaluates cleanly (e.g. `just check`, tests, type checks).
+- Any dev server or long-running process needed for verification is healthy.
+- New or renamed files are staged (`git add`).
+- No secrets, credentials, or personal data were committed.
+- Relevant project memory (docs, comments, ADRs) has been updated if the change
+  reveals new decisions or contradictions.
+
+Project-specific extensions to this checklist live in the project's `AGENTS.md`.
 
 ## Success criteria
 
