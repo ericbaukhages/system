@@ -79,6 +79,7 @@
     mouse = true;
     extraConfig = ''
       set -g default-terminal "screen-256color"
+      set -g set-clipboard on
     '';
   };
 
