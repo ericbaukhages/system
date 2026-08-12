@@ -128,6 +128,22 @@ When applying this workflow to a new project, answer the following questions:
 - What is the default pairing mode for this project?
 - Are there project-specific overrides to the general workflow?
 
+## Cross-skill conventions
+
+The general workflow is intentionally narrow and is not loaded by default in
+every session; it is invoked explicitly to keep context windows small. When it
+is active, it should detect and apply conventions from complementary skills:
+
+- **Nix / nix-flake:** If the project has a `flake.nix`, `shell.nix`, or
+  `default.nix`, use Nix conventions for dev shells and package management.
+  Run commands via `nix develop --command ...` when appropriate.
+- **tmux-aware:** If the project runs a long-lived dev server, start it in a
+  named tmux window rather than as an agent subprocess.
+- **CI skills:** If the project has CI configuration, include CI checks in the
+  required done checklist.
+
+Project-specific cross-skill conventions should be recorded in `AGENTS.md`.
+
 ## Planning
 
 A dedicated planning discussion is available but not required. The AI mentions

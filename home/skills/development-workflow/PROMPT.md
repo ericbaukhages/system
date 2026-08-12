@@ -80,6 +80,22 @@ When working in a new project, review `AGENTS.md` and consider recording answers
 - Documentation conventions and where ADRs, design notes, and session notes live.
 - Default pairing mode and project-specific overrides.
 
+## Cross-skill conventions
+
+This skill is not loaded by default in every session; it is invoked explicitly
+to keep context windows small. When it is active, check whether the project
+uses conventions from other skills and apply them when relevant:
+
+- If the project has a `flake.nix`, `shell.nix`, or `default.nix`, prefer Nix
+  conventions for dev shells and package management. Run commands via
+  `nix develop --command ...` when appropriate.
+- If the project runs a long-lived dev server, prefer tmux-aware conventions:
+  start the server in a named tmux window rather than as an agent subprocess.
+- If the project has CI configuration, treat CI checks as part of the required
+  done checklist.
+
+Project-specific cross-skill conventions should be recorded in `AGENTS.md`.
+
 ## Core principles
 
 - Prefer explicit reasoning over hidden assumptions.

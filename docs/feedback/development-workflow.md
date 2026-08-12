@@ -21,7 +21,7 @@ structure so we can track status as we apply changes.
 | 2 | [`ai-led` collides with hard guardrails](#2-ai-led-collides-with-hard-guardrails) | high | applied |
 | 3 | [`human-led` boundaries are fuzzy](#3-human-led-boundaries-are-fuzzy) | high | applied |
 | 4 | [Onboarding checklist needs a template](#4-onboarding-checklist-needs-a-template) | medium | skill-planned |
-| 5 | [Tooling-specific skills are siloed](#5-tooling-specific-skills-are-siloed) | low | pending |
+| 5 | [Tooling-specific skills are siloed](#5-tooling-specific-skills-are-siloed) | low | applied |
 | 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | applied |
 | 7 | [Planning lacks an artifact](#7-planning-lacks-an-artifact) | low | pending |
 | 8 | [Documentation tension: README vs. AGENTS.md](#8-documentation-tension-readme-vs-agentsmd) | medium | pending |
@@ -94,7 +94,11 @@ structure so we can track status as we apply changes.
   environment/runtime skills when relevant (e.g. tmux for long-running servers,
   Nix for dev shells). At minimum, the onboarding checklist should ask whether
   the project uses Nix/tmux/CI and adapt the required checks accordingly.
-- **Status:** pending
+- **Status:** applied
+- **Note:** Added a "Cross-skill conventions" section to the skill prompt and
+  reference doc. It explicitly states the skill is not loaded by default and
+  should apply Nix/tmux/CI conventions only when the skill is active and the
+  project uses those tools.
 
 ## 6. "Natural checkpoints" in `ai-led` are undefined
 
