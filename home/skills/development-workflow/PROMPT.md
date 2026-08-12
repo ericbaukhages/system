@@ -105,6 +105,8 @@ When working in a new project, review `AGENTS.md` and consider recording answers
 - Files or directories the AI should not modify in `ai-led` mode.
 - Operations that always require human confirmation.
 - Documentation conventions and where ADRs, design notes, and session notes live.
+- Whether to create a `README.md` for human contributors now, or add a
+  "Setup" section to `AGENTS.md` that can later migrate to `README.md`.
 - Default pairing mode and project-specific overrides.
 
 ## Cross-skill conventions

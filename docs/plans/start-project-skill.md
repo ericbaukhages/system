@@ -31,11 +31,12 @@ The skill should activate when the user:
 
 At minimum, the skill produces:
 
-1. `AGENTS.md` — project-specific guardrails and conventions.
+1. `AGENTS.md` — project-specific guardrails and conventions. Includes a
+   "Setup" section if the user deferred a dedicated `README.md`.
 2. `.opencode/pairing-mode` — default pairing mode (usually `balanced`).
 3. Optional starter files depending on project type:
    - `flake.nix` or `shell.nix` for Nix projects.
-   - `README.md` if the user wants human contributor docs.
+   - `README.md` if the user wants human contributor docs now.
    - `docs/plans/` directory with an initial plan artifact.
 
 ## Workflow
@@ -49,7 +50,8 @@ Before generating files, the skill asks or infers:
 - Whether to use Nix for the dev environment.
 - Whether the project needs a long-running dev server.
 - Default pairing mode preference.
-- Whether to create a `README.md` now or defer.
+- Whether to create a `README.md` now for human contributors, or add a "Setup"
+  section to `AGENTS.md` that can migrate to `README.md` later.
 - Where project documentation should live (`docs/`, `notes/`, etc.).
 
 ### Step 2: Select or scaffold project type

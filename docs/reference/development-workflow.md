@@ -125,6 +125,9 @@ When applying this workflow to a new project, answer the following questions:
   data, changing infrastructure, spending money, creating accounts.)
 - What is the project's documentation convention? Where do ADRs, design notes,
   and session notes live?
+- Should the project have a `README.md` for human contributors now, or should
+  setup instructions start in a "Setup" section of `AGENTS.md` and migrate to
+  `README.md` later?
 - What is the default pairing mode for this project?
 - Are there project-specific overrides to the general workflow?
 

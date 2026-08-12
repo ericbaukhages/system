@@ -24,7 +24,7 @@ structure so we can track status as we apply changes.
 | 5 | [Tooling-specific skills are siloed](#5-tooling-specific-skills-are-siloed) | low | applied |
 | 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | applied |
 | 7 | [Planning lacks an artifact](#7-planning-lacks-an-artifact) | low | applied |
-| 8 | [Documentation tension: README vs. AGENTS.md](#8-documentation-tension-readme-vs-agentsmd) | medium | pending |
+| 8 | [Documentation tension: README vs. AGENTS.md](#8-documentation-tension-readme-vs-agentsmd) | medium | applied |
 | 9 | [Required checks are project-specific, not workflow-wide](#9-required-checks-are-project-specific-not-workflow-wide) | medium | applied |
 
 ## 1. Mode switching is too manual
@@ -143,7 +143,10 @@ structure so we can track status as we apply changes.
 - **Proposed change:** During onboarding, the AI should explicitly ask whether
   to create a README, or add a "Setup" section to `AGENTS.md` that can later be
   migrated to README.
-- **Status:** pending
+- **Status:** applied
+- **Note:** Added the README/Setup question to the workflow skill onboarding
+  checklist, the reference doc onboarding checklist, and the start-project
+  skill requirements.
 
 ## 9. Required checks are project-specific, not workflow-wide
 
