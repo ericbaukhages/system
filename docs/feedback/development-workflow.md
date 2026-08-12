@@ -20,7 +20,11 @@ structure so we can track status as we apply changes.
 | 1 | [Mode switching is too manual](#1-mode-switching-is-too-manual) | medium | requirements-drafted |
 | 2 | [`ai-led` collides with hard guardrails](#2-ai-led-collides-with-hard-guardrails) | high | applied |
 | 3 | [`human-led` boundaries are fuzzy](#3-human-led-boundaries-are-fuzzy) | high | applied |
+| 4 | [Onboarding checklist needs a template](#4-onboarding-checklist-needs-a-template) | medium | skill-planned |
+| 5 | [Tooling-specific skills are siloed](#5-tooling-specific-skills-are-siloed) | low | pending |
 | 6 | ["Natural checkpoints" in `ai-led` are undefined](#6-natural-checkpoints-in-ai-led-are-undefined) | medium | applied |
+| 7 | [Planning lacks an artifact](#7-planning-lacks-an-artifact) | low | pending |
+| 8 | [Documentation tension: README vs. AGENTS.md](#8-documentation-tension-readme-vs-agentsmd) | medium | pending |
 | 9 | [Required checks are project-specific, not workflow-wide](#9-required-checks-are-project-specific-not-workflow-wide) | medium | applied |
 
 ## 1. Mode switching is too manual
@@ -74,7 +78,10 @@ structure so we can track status as we apply changes.
 - **Proposed change:** Ship a starter `AGENTS.md` template (or a `just`
   scaffold) with placeholders for deployment process, required checks,
   unilateral-edit restrictions, and confirmation gates.
-- **Status:** pending
+- **Status:** skill-planned
+- **Note:** Requirements for a new `start-project` skill are captured in
+  `docs/plans/start-project-skill.md`. The skill will generate a starter
+  `AGENTS.md` as part of project initialization.
 
 ## 5. Tooling-specific skills are siloed
 
