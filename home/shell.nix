@@ -77,9 +77,38 @@
   programs.tmux = {
     enable = true;
     mouse = true;
+    keyMode = "vi";
+    escapeTime = 0;
+    focusEvents = true;
     extraConfig = ''
-      set -g default-terminal "screen-256color"
+      set -g default-terminal "tmux-256color"
       set -g set-clipboard on
+
+      # Tell tmux that Kitty supports OSC 52 clipboard integration.
+      set -as terminal-features ",xterm-kitty:clipboard"
+
+      # Update terminal title from tmux.
+      set -g set-titles on
+
+      # Keep window names stable; don't let programs rename them.
+      set -g allow-rename off
+      set -g automatic-rename off
+
+      # Renumber windows when one is closed so there are no gaps.
+      set -g renumber-windows on
+
+      # Report extended keys (e.g. Ctrl+Shift combinations) to applications.
+      set -g extended-keys on
+      set -g extended-keys-format csi-u
+
+      # Keep mouse mode for pane/window selection and scrolling, but disable
+      # tmux's mouse-driven text selection so that opencode and the terminal
+      # handle selection and clipboard directly.
+      unbind -n MouseDrag1Pane
+      unbind -n DoubleClick1Pane
+      unbind -n TripleClick1Pane
+      unbind -T copy-mode-vi MouseDrag1Pane
+      unbind -T copy-mode-vi MouseDragEnd1Pane
     '';
   };
 
