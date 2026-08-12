@@ -3,7 +3,7 @@ title: "Development Workflow"
 type: reference
 status: draft
 created: 2026-08-08
-updated: 2026-08-08
+updated: 2026-08-11
 tags: [ai, workflow, collaboration, conventions]
 ---
 
@@ -241,3 +241,73 @@ Optimize for building a project that both the human and the AI understand.
   configuration. This document is a working draft; changes should be proposed
   and agreed upon before encoding it into any project-specific agent
   configuration.
+
+---
+
+## Solves / applied examples
+
+### Move Tracker workflow test — 2026-08-11
+
+A practical test of the three pairing modes on a greenfield project:
+**Move Tracker**, a Vite + React site for tracking a family move from
+Mays Landing, NJ to Greenville, SC.
+
+Repository: `~/Projects/move`
+
+#### What was built
+
+- `AGENTS.md` with project guardrails (deployment rules, required checks,
+  files not to touch in `ai-led` mode, confirmation gates).
+- `flake.nix` dev shell providing Node 22 + npm + git.
+- Vite + React scaffold with a task list UI, status/category filters, status
+  summary bar, and text search filter.
+- `src/data/tasks.json` as the initial data source.
+- Dev server running inside tmux window `:move-web` at
+  `http://localhost:5173/`.
+
+#### Mode test results
+
+| Mode | Feature | How it worked |
+|------|---------|---------------|
+| **balanced** | Initial project skeleton, planning, and dev server setup. | AI proposed plan and decision points, asked before committing/chunking, implemented approved work. |
+| **ai-led** | Status summary bar (total / todo / in-progress / done counts). | AI implemented independently, explained briefly, asked for commit approval at the natural checkpoint. |
+| **human-led** | Text search filter by title and notes. | Human wrote state, filter logic, and CSS; AI reviewed incrementally, caught `useMemo` dep bug and `.search()` vs `.includes()` issue, made a final polish commit. |
+
+#### Key solves
+
+1. **Nix dev shell for Node.** Base environment had no `node`/`npm`. Added a
+   minimal `flake.nix` with `nodejs_22` and `git`, then ran all npm commands
+   via `nix develop --command ...`.
+2. **Tmux-aware dev server.** Started `npm run dev` inside a named tmux
+   window `:move-web` rather than as an agent subprocess, so it survives
+   turns and is easy to inspect/stop with `tmux capture-pane` / `C-c`.
+3. **Correct `nix develop --command` invocation.** The single-string form
+   fails because `nix develop --command "npm run dev"` treats the whole
+   string as the executable. Use `nix develop --command bash -c "npm run dev"`
+   instead.
+4. **React dependency arrays.** The human-led search filter initially omitted
+   `searchQuery` from the `useMemo` deps, so typing did not re-filter.
+5. **String search semantics.** `.search()` returns a number (`0` for a match
+   at the start, `-1` for no match), which makes `||` chains confusing.
+   Prefer `.includes()` for boolean checks.
+
+#### Commits
+
+- `d5e3e2b` — feat: initial Move Tracker setup with Vite + React
+- `b6ac884` — feat: add task status summary bar
+- `e844b21` — feat: add text search filter for tasks
+
+#### Open follow-ups
+
+- The user mentioned interest in trying [Dolt](https://github.com/dolthub/dolt)
+  later; this would be a backend/database change requiring human confirmation
+  per the project's `AGENTS.md`.
+- Search currently filters only by title and notes; future extensions could
+  include due-date filtering or marking tasks done inline.
+
+---
+
+## Feedback
+
+Critical feedback and proposed workflow improvements from the Move Tracker
+prototype are tracked in `docs/feedback/development-workflow.md`.
