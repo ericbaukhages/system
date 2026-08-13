@@ -24,7 +24,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.opt.scrolloff = 2
 
-vim.opt.completeopt = { "menu", "menuone", "fuzzy" }
+vim.opt.completeopt = { "menu", "menuone", "noselect", "fuzzy" }
 vim.opt.shortmess:append("c")
 vim.opt.pumheight = 10
 
@@ -86,7 +86,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client and client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
+			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+		end
+		if client and client:supports_method("textDocument/formatting") then
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				buffer = args.buf,
+				callback = function()
+					vim.lsp.buf.format({ async = false, id = client.id })
+				end,
+			})
 		end
 	end,
 })
@@ -127,3 +135,35 @@ vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- Only use <C-a>; <C-e> already works as <End>
 vim.keymap.set("c", "<C-a>", "<Home>", {})
+
+-- Expand LSP snippet completions with vim.snippet
+vim.api.nvim_create_autocmd("CompleteDone", {
+	callback = function()
+		local item = vim.v.completed_item
+		if
+			item
+			and item.user_data
+			and item.user_data.nvim
+			and item.user_data.nvim.snippet
+		then
+			vim.snippet.expand(item.user_data.nvim.snippet)
+		end
+	end,
+})
+
+-- Navigate snippet placeholders
+vim.keymap.set({ "i", "s" }, "<Tab>", function()
+	if vim.snippet.active({ direction = 1 }) then
+		vim.snippet.jump(1)
+	else
+		return "<Tab>"
+	end
+end, { expr = true })
+
+vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+	if vim.snippet.active({ direction = -1 }) then
+		vim.snippet.jump(-1)
+	else
+		return "<S-Tab>"
+	end
+end, { expr = true })
