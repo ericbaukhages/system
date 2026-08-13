@@ -9,5 +9,6 @@
     nixd
     nixfmt
     opencode
+    xclip
   ];
 }
