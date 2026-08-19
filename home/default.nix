@@ -16,6 +16,7 @@ in
 
   imports = [
     ./packages.nix
+    ./scripts.nix
     ./git.nix
     ./ssh.nix
     ./shell.nix
