@@ -13,6 +13,8 @@
     tree
     typescript-language-server
     vscode-langservers-extracted
+    whisper-cpp
+    wireplumber
     yt-dlp
   ];
 }
