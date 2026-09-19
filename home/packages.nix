@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     codex
+    entr
     fd
     fzf
     gh
