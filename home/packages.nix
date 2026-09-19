@@ -9,6 +9,7 @@
     htop
     just
     nerd-fonts.iosevka-term
+    obsidian
     ripgrep
     tig
     todoist

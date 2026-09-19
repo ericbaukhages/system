@@ -25,7 +25,7 @@ in
     ./opencode.nix
   ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "todoist-electron" ];
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "obsidian" "todoist-electron" ];
 
   home.sessionVariables = {
     SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
