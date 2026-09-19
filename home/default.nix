@@ -54,6 +54,10 @@ in
     # layer-shell protocol, which GNOME/Mutter does not implement, so a GNOME
     # Shell extension is the cleanest Wayland-native approach here.)
     "org/gnome/shell" = {
+      # GNOME 50 hides Log Out in the system menu by default when there is only
+      # one user account. Show it so we can log out without restarting.
+      "always-show-log-out" = true;
+
       enabled-extensions = [
         "quake-terminal@diegodario88.github.io"
       ];
