@@ -90,6 +90,10 @@
     escapeTime = 0;
     focusEvents = true;
     extraConfig = ''
+      # Reminder: pane cycling uses the default tmux binds:
+      #   C-b o  -> next pane, C-b ;  -> previous (last) pane.
+      # No custom hjkl binds for now.
+
       set -g default-terminal "tmux-256color"
       set -g set-clipboard on
 
