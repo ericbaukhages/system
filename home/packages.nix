@@ -11,6 +11,7 @@
     nerd-fonts.iosevka-term
     nodejs
     obsidian
+    xdg-utils
     ripgrep
     tig
     todoist

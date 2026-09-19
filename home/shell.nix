@@ -60,6 +60,15 @@
         g() {
           git checkout $(git branch -a --format="%(refname:short)" --sort="-authordate" | fzf | sed 's|origin/||g')
         }
+
+        # Open files/URLs with the default application, like macOS's `open`.
+        open() {
+          if [[ "$OSTYPE" == darwin* ]]; then
+            command open "$@"
+          else
+            xdg-open "$@"
+          fi
+        }
       '')
     ];
   };
