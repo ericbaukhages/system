@@ -9,6 +9,7 @@
     htop
     just
     nerd-fonts.iosevka-term
+    nodejs
     obsidian
     ripgrep
     tig

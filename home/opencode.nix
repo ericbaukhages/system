@@ -27,6 +27,25 @@ let
 
     # Enable LSP support (built-in language servers).
     lsp = true;
+
+    # MCP servers.
+    mcp = {
+      firefox-devtools = {
+        type = "local";
+        command = [
+          "npx"
+          "-y"
+          "@mozilla/firefox-devtools-mcp@latest"
+          "--headless"
+          "--viewport"
+          "1280x720"
+        ];
+        environment = {
+          START_URL = "about:blank";
+        };
+        enabled = true;
+      };
+    };
   };
 
   # Discover immediate subdirectories under a path.
