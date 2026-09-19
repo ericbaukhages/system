@@ -9,6 +9,10 @@
     gh
     htop
     just
+
+    # https://github.com/lomirus/live-server (actively maintained Rust rewrite of tapio/live-server)
+    live-server
+
     nerd-fonts.iosevka-term
     nodejs
     obsidian
