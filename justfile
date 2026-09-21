@@ -13,6 +13,12 @@ home:
 home-darwin:
     nix run home-manager -- switch --flake .#eric-darwin
 
+home-news:
+    nix run home-manager -- news --flake .#eric
+
+home-darwin-news:
+    nix run home-manager -- news --flake .#eric-darwin
+
 darwin:
     darwin-rebuild switch --flake .#eric-macbook
 

@@ -8,6 +8,8 @@
     fzf
     gh
     htop
+    imagemagick
+    jq
     just
 
     # https://github.com/lomirus/live-server (actively maintained Rust rewrite of tapio/live-server)

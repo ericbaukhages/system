@@ -9,15 +9,19 @@ tags: [opencode, harness, slash-commands, workflow]
 
 # OpenCode Harness Requirements
 
-This document collects harness and plugin features that the
-development-workflow skill needs but that cannot be implemented purely inside a
-system prompt or skill file. Use it as a reference when evaluating OpenCode
+This document collects harness and plugin features that the historical
+`development-workflow` skill needed but that cannot be implemented purely inside
+a system prompt or skill file. Use it as a reference when evaluating OpenCode
 configuration options, writing custom plugins, or filing upstream feature
 requests.
 
+> **Note (2026-09-19):** The global `development-workflow` skill was removed
+> from OpenCode config. This document is kept as a historical record of the
+> features that would have supported it.
+
 ## Current workarounds
 
-Until harness support exists, the workflow skill uses these fallbacks:
+Until harness support exists, the workflow would have used these fallbacks:
 
 | Desired feature | Current workaround | Limitation |
 |-----------------|--------------------|------------|
@@ -160,9 +164,7 @@ structured way.
 
 ## Related documents
 
-- `home/skills/development-workflow/PROMPT.md` — skill prompt that consumes
-  these features.
 - `docs/reference/development-workflow.md` — reference definition of the
-  workflow.
+  workflow (the skill was removed from OpenCode config on 2026-09-19).
 - `docs/feedback/development-workflow.md` — feedback items that motivated these
   requirements.

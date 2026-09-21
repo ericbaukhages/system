@@ -69,6 +69,13 @@
             xdg-open "$@"
           fi
         }
+
+        # Resume a previous opencode session selected with fzf.
+        resume() {
+          local session
+          session=$(opencode session list --format=json 2>/dev/null | jq -r '.[] | "\(.id)\t\(.title)"' | fzf --height=40% --reverse --prompt='resume session: ' | cut -f1)
+          [[ -n "$session" ]] && opencode -s "$session"
+        }
       '')
     ];
   };

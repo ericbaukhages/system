@@ -14,7 +14,12 @@ skill is invoked when the user opens OpenCode in a fresh repository and asks
 something like "start a new project" or "init this repo."
 
 It should capture the repetitive setup work that currently happens ad hoc and
-produce a project that the `development-workflow` skill can then drive.
+produce a project that the development workflow can then drive.
+
+> **Note (2026-09-19):** The global `development-workflow` skill was removed
+> from OpenCode config. The workflow ideas documented in
+> `docs/reference/development-workflow.md` remain available as a historical
+> reference.
 
 ## Trigger conditions
 
@@ -84,8 +89,9 @@ Required sections:
 
 ### Step 4: Set default pairing mode
 
-Write `.opencode/pairing-mode` with the chosen default. The `development-workflow`
-skill will read this file at the start of each task.
+Write `.opencode/pairing-mode` with the chosen default. The historical
+`development-workflow` workflow would read this file at the start of each task,
+but the skill has been removed from OpenCode config.
 
 ### Step 5: Offer a plan artifact
 
@@ -104,8 +110,9 @@ development work.
 
 ## Integration with other skills
 
-- **development-workflow** — reads `.opencode/pairing-mode` and `AGENTS.md`;
-  relies on this skill to create them.
+- **development-workflow** — historical workflow that read `.opencode/pairing-mode`
+  and `AGENTS.md`; relied on this skill to create them. The skill has been
+  removed from OpenCode config.
 - **tmux-aware** — if the project needs a dev server, the start-project skill
   should mention tmux conventions and perhaps create a tmux session or window.
 - **nix-flake** — for Nix projects, this skill should generate or validate the
@@ -122,8 +129,8 @@ development work.
 
 ## Related documents
 
-- `home/skills/development-workflow/PROMPT.md`
-- `docs/reference/development-workflow.md`
+- `docs/reference/development-workflow.md` — historical reference (the skill
+  was removed from OpenCode config on 2026-09-19).
 - `docs/feedback/development-workflow.md` — items #4 and #8 motivated this
   skill.
 - `docs/plans/opencode-harness-requirements.md` — harness features that would

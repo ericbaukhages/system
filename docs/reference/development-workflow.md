@@ -1,14 +1,19 @@
 ---
 title: "Development Workflow"
 type: reference
-status: draft
+status: abandoned
 created: 2026-08-08
-updated: 2026-08-11
+updated: 2026-09-19
 tags: [ai, workflow, collaboration, conventions]
 ---
 
 # Development Workflow
 
+> **Removed from OpenCode config on 2026-09-19.** The global
+> `development-workflow` skill in `home/skills/development-workflow/` was
+> deleted because we no longer load it as a skill. This document is kept as a
+> historical reference for the workflow ideas and the Move Tracker prototype.
+>
 > General directive for AI/human collaboration on software projects.
 >
 > This document defines a reusable workflow for how an AI assistant should

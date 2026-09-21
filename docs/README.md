@@ -33,9 +33,9 @@ has already been implemented.
 
 ### Reference
 
-| Doc | Status | Tags |
-|---|---|---|
-| [Development Workflow](reference/development-workflow.md) | draft | ai, workflow, collaboration, conventions |
+| Doc | Status | Tags | Notes |
+|---|---|---|---|
+| [Development Workflow](reference/development-workflow.md) | abandoned | ai, workflow, collaboration, conventions | Skill removed from OpenCode config on 2026-09-19; doc kept as historical reference. |
 
 ## Adding a new doc
 
