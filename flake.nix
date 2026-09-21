@@ -17,6 +17,22 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # CLI tools to try (see docs/plans/cli-tools-to-try.md).
+    ghgrab = {
+      url = "github:abhixdd/ghgrab/v2.0.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    tuxedo = {
+      url = "github:webstonehq/tuxedo/v2026.8.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    kew = {
+      url = "github:ravachol/kew/v4.3.4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +42,9 @@
       nixpkgs-unstable,
       home-manager,
       nix-darwin,
+      ghgrab,
+      tuxedo,
+      kew,
       ...
     }:
     let
@@ -45,7 +64,10 @@
             overlays = [
               (final: prev: {
                 yt-dlp = nixpkgs-unstable.legacyPackages.${system}.yt-dlp;
+                ghgrab = ghgrab.packages.${system}.default;
               })
+              tuxedo.overlays.default
+              kew.overlays.default
             ];
           };
         in

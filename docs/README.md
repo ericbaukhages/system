@@ -24,6 +24,7 @@ has already been implemented.
 |---|---|---|
 | [Homelab migration plan](plans/homelab-migration-plan.md) | implemented | nixos, homelab, x250, t490s, caddy, podman, tailscale |
 | [macOS-style Super key](plans/macos-style-super-key.md) | proposed | nixos, gnome, keyd, input, keyboard, macos |
+| [CLI tools to try](plans/cli-tools-to-try.md) | in-progress | cli, tools, nix, home-manager |
 
 ### Research / inspiration
 

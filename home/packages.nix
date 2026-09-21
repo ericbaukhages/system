@@ -7,10 +7,12 @@
     fd
     fzf
     gh
+    ghgrab
     htop
     imagemagick
     jq
     just
+    kew
 
     # https://github.com/lomirus/live-server (actively maintained Rust rewrite of tapio/live-server)
     live-server
@@ -18,6 +20,7 @@
     nerd-fonts.iosevka-term
     nodejs
     obsidian
+    tuxedo
     xdg-utils
     ripgrep
     tig
