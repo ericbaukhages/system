@@ -33,6 +33,12 @@
       url = "github:ravachol/kew/v4.3.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Markdown TUI previewer (no upstream flake, source-only input).
+    leaf = {
+      url = "github:RivoLink/leaf/1.28.2";
+      flake = false;
+    };
   };
 
   outputs =
@@ -45,6 +51,7 @@
       ghgrab,
       tuxedo,
       kew,
+      leaf,
       ...
     }:
     let
@@ -65,6 +72,12 @@
               (final: prev: {
                 yt-dlp = nixpkgs-unstable.legacyPackages.${system}.yt-dlp;
                 ghgrab = ghgrab.packages.${system}.default;
+                leaf = prev.rustPlatform.buildRustPackage {
+                  pname = "leaf";
+                  version = "1.28.2";
+                  src = leaf;
+                  cargoLock.lockFile = leaf + "/Cargo.lock";
+                };
               })
               tuxedo.overlays.default
               kew.overlays.default

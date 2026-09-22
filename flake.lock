@@ -118,6 +118,23 @@
         "type": "github"
       }
     },
+    "leaf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789360489,
+        "narHash": "sha256-WX9C4gWNPCHWFsHN4xFmShv6dJyYAVgr9xMw5JtoFHI=",
+        "owner": "RivoLink",
+        "repo": "leaf",
+        "rev": "140e55858c98df50ba52fc4ab7bad277a31ab73f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RivoLink",
+        "ref": "1.28.2",
+        "repo": "leaf",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -206,6 +223,7 @@
         "ghgrab": "ghgrab",
         "home-manager": "home-manager",
         "kew": "kew",
+        "leaf": "leaf",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",

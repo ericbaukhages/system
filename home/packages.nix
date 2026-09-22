@@ -13,6 +13,7 @@
     jq
     just
     kew
+    leaf
 
     # https://github.com/lomirus/live-server (actively maintained Rust rewrite of tapio/live-server)
     live-server
