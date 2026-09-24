@@ -108,8 +108,6 @@ in
 
       - Be concise and accurate.
       - Prefer small, focused edits.
-      - Validate Nix changes with `just check` before considering a task done.
-      - This is a Nix flake; new files must be staged with `git add` before the flake can see them.
     '';
   }
   // skillFiles
