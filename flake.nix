@@ -70,6 +70,7 @@
             inherit system;
             overlays = [
               (final: prev: {
+                secretspec = nixpkgs-unstable.legacyPackages.${system}.secretspec;
                 yt-dlp = nixpkgs-unstable.legacyPackages.${system}.yt-dlp;
                 ghgrab = ghgrab.packages.${system}.default;
                 leaf = prev.rustPlatform.buildRustPackage {

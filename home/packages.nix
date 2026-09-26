@@ -24,6 +24,7 @@
     tuxedo
     xdg-utils
     ripgrep
+    secretspec
     tig
     todoist
     todoist-electron
