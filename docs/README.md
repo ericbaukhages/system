@@ -37,6 +37,7 @@ has already been implemented.
 | Doc | Status | Tags | Notes |
 |---|---|---|---|
 | [Development Workflow](reference/development-workflow.md) | abandoned | ai, workflow, collaboration, conventions | Skill removed from OpenCode config on 2026-09-19; doc kept as historical reference. |
+| [How We Work](reference/how-we-work.md) | draft | conventions, workflow, collaboration, code-review | Living team conventions referenced by the `code-review` skill. |
 
 ## Adding a new doc
 
