@@ -23,6 +23,7 @@ in
     ./neovim
     ./kitty.nix
     ./opencode.nix
+    ./laravel.nix
   ];
 
   nixpkgs.config.allowUnfreePredicate =
