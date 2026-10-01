@@ -45,6 +45,12 @@ let
         };
         enabled = true;
       };
+
+      todoist = {
+        type = "remote";
+        url = "https://ai.todoist.net/mcp";
+        enabled = true;
+      };
     };
   };
 

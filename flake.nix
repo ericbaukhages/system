@@ -79,6 +79,17 @@
                   src = leaf;
                   cargoLock.lockFile = leaf + "/Cargo.lock";
                 };
+                todoist = final.buildNpmPackage {
+                  pname = "todoist-cli";
+                  version = "5.4.3";
+                  src = final.fetchFromGitHub {
+                    owner = "Doist";
+                    repo = "todoist-cli";
+                    rev = "v5.4.3";
+                    hash = "sha256-9WKTOmO4NPL1Lmu82FRaSLiBhugfffp/PDks4cfxczM=";
+                  };
+                  npmDepsHash = "sha256-LhzRlfvKkQBfx3K0dS6D0cdrVFEjkqHk+F2lMHRpdbk=";
+                };
               })
               tuxedo.overlays.default
               kew.overlays.default
