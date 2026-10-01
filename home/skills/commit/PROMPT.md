@@ -80,6 +80,15 @@ Do not push after committing unless the user explicitly requests it. If asked, p
 git push
 ```
 
+## 8. 1Password SSH signing
+
+Commits are signed with the 1Password SSH agent. If `git commit`, `git push`, or any other SSH key operation fails with a signing or authentication error, assume one of the following:
+
+- 1Password is not running.
+- The user missed the 1Password authorization popup.
+
+Do not retry automatically. Pause and ask the user to unlock 1Password or approve the request, then try again once they confirm.
+
 ## Guardrails
 
 - Never commit secrets, credentials, or large generated artifacts.
