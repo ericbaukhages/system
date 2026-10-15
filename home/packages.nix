@@ -31,6 +31,7 @@
     tree
     typescript-language-server
     vscode-langservers-extracted
+    wasp
     whisper-cpp
     wireplumber
     yt-dlp

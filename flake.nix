@@ -90,6 +90,67 @@
                   };
                   npmDepsHash = "sha256-LhzRlfvKkQBfx3K0dS6D0cdrVFEjkqHk+F2lMHRpdbk=";
                 };
+
+                # Wasp CLI ships as an npm wrapper around platform-specific
+                # binaries. We bypass the Node wrapper and call the binary
+                # directly with its data directory.
+                wasp =
+                  let
+                    version = "0.25.0";
+                    platformInfo = {
+                      x86_64-linux = {
+                        name = "linux-x64-glibc";
+                        hash = "sha256-ceM95ZbOdUq+5KBUhxIZb0CBrCWkLemO6iIjzhiHfo4=";
+                      };
+                      aarch64-linux = {
+                        name = "linux-arm64-glibc";
+                        hash = "sha256-IXaAH2gbxcwlDJt3aDHPhaKNiGmhnEqhHqGFYV55p7Y=";
+                      };
+                      x86_64-darwin = {
+                        name = "darwin-x64-unknown";
+                        hash = "sha256-BM7/1y4fX6sZ08miFYluF8n6kK0KqZRsoKlH+TPP39M=";
+                      };
+                      aarch64-darwin = {
+                        name = "darwin-arm64-unknown";
+                        hash = "sha256-EAWK//ropRPQEUmgOTsilD+BGZmRTQhn6DkiKwwayts=";
+                      };
+                    };
+                    selected =
+                      platformInfo.${prev.stdenv.hostPlatform.system}
+                        or (throw "wasp is not supported on ${prev.stdenv.hostPlatform.system}");
+                  in
+                  prev.stdenv.mkDerivation {
+                    pname = "wasp";
+                    inherit version;
+                    src = prev.fetchurl {
+                      url = "https://registry.npmjs.org/@wasp.sh/wasp-cli-${selected.name}/-/wasp-cli-${selected.name}-${version}.tgz";
+                      hash = selected.hash;
+                    };
+                    nativeBuildInputs = [
+                      prev.makeWrapper
+                    ]
+                    ++ prev.lib.optionals prev.stdenv.hostPlatform.isLinux [ prev.autoPatchelfHook ];
+                    buildInputs = prev.lib.optionals prev.stdenv.hostPlatform.isLinux [
+                      prev.zlib
+                      prev.gmp
+                    ];
+                    installPhase = ''
+                      runHook preInstall
+                      mkdir -p $out/bin $out/lib/wasp $out/share/wasp
+                      cp wasp-bin $out/lib/wasp/
+                      cp -r data $out/share/wasp/
+                      makeWrapper $out/lib/wasp/wasp-bin $out/bin/wasp \
+                        --set waspc_datadir $out/share/wasp/data
+                      runHook postInstall
+                    '';
+                    meta = {
+                      description = "Wasp CLI";
+                      homepage = "https://wasp.sh";
+                      license = prev.lib.licenses.mit;
+                      platforms = prev.lib.attrNames platformInfo;
+                      sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
+                    };
+                  };
               })
               tuxedo.overlays.default
               kew.overlays.default
