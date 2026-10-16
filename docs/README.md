@@ -22,9 +22,7 @@ has already been implemented.
 
 | Doc | Status | Tags |
 |---|---|---|
-| [Homelab migration plan](plans/homelab-migration-plan.md) | implemented | nixos, homelab, x250, t490s, caddy, podman, tailscale |
 | [macOS-style Super key](plans/macos-style-super-key.md) | proposed | nixos, gnome, keyd, input, keyboard, macos |
-| [CLI tools to try](plans/cli-tools-to-try.md) | in-progress | cli, tools, nix, home-manager |
 
 ### Research / inspiration
 
@@ -36,8 +34,7 @@ has already been implemented.
 
 | Doc | Status | Tags | Notes |
 |---|---|---|---|
-| [Development Workflow](reference/development-workflow.md) | abandoned | ai, workflow, collaboration, conventions | Skill removed from OpenCode config on 2026-09-19; doc kept as historical reference. |
-| [How We Work](reference/how-we-work.md) | draft | conventions, workflow, collaboration, code-review | Living team conventions referenced by the `code-review` skill. |
+| [How We Work](reference/how-we-work.md) | draft | conventions, workflow, collaboration, code-review | Living conventions referenced by the `code-review` skill. |
 
 ## Adding a new doc
 

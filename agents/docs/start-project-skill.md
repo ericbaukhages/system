@@ -17,9 +17,8 @@ It should capture the repetitive setup work that currently happens ad hoc and
 produce a project that the development workflow can then drive.
 
 > **Note (2026-09-19):** The global `development-workflow` skill was removed
-> from OpenCode config. The workflow ideas documented in
-> `docs/reference/development-workflow.md` remain available as a historical
-> reference.
+> from OpenCode config. The historical `docs/reference/development-workflow.md`
+> was later deleted during repo reorganization.
 
 ## Trigger conditions
 
@@ -120,7 +119,7 @@ development work.
 
 ## Open questions
 
-- Should the skill live in this system repo under `home/skills/start-project/`,
+- Should the skill live in this system repo under `agents/skills/start-project/`,
   or should it be a separate repository?
 - Should templates be Nix expressions, plain files, or a mix?
 - How does the skill detect the desired project type? Ask explicitly, infer
@@ -129,9 +128,7 @@ development work.
 
 ## Related documents
 
-- `docs/reference/development-workflow.md` — historical reference (the skill
-  was removed from OpenCode config on 2026-09-19).
-- `docs/feedback/development-workflow.md` — items #4 and #8 motivated this
-  skill.
+- `development-workflow` — historical skill removed from OpenCode config on
+  2026-09-19; related docs were later deleted during repo reorganization.
 - `docs/plans/opencode-harness-requirements.md` — harness features that would
   improve this skill (slash commands, plan artifacts).

@@ -33,6 +33,11 @@
         unsetopt autocd beep
         bindkey -e
 
+        # Fast Node Manager: switch Node versions automatically on cd.
+        if command -v fnm &>/dev/null; then
+          eval "$(fnm env --use-on-cd --shell zsh)"
+        fi
+
         # Completion behavior (before compinit)
         zstyle :compinstall filename '${config.home.homeDirectory}/.zshrc'
 

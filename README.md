@@ -1,117 +1,80 @@
 # system
 
-This repo is the single source of truth for my system configurations: NixOS hosts, macOS machines, and dotfiles managed with home-manager.
+Opinionated Nix configurations for the systems I run.
 
-The goal is to be able to stand up a new machine with a one-liner and have everything I care about applied automatically.
+This is a monorepo with clear boundaries: each top-level directory is a separate
+concern with its own README and entry point. The goal is a one-command restore
+on any system.
 
-## What's in here
+## Layout
 
 | Path | Purpose |
-|------|---------|
-| `flake.nix` | Top-level Nix flake entry point for all hosts and home configurations |
-| `vars.nix` | Shared user/domain/timezone/identity values used across hosts and home-manager |
-| `hosts/` | Per-machine NixOS and nix-darwin configurations |
-| `home/` | Reusable home-manager modules (shell, editor, git, etc.) |
-| `modules/nixos/` | Shared NixOS/system modules |
-| `modules/darwin/` | Shared nix-darwin/system modules |
-| `docs/` | Notes, plans, research, and reference material |
-| `justfile` | Common commands for rebuilding, checking, and applying configurations |
+|---|---|
+| `flake.nix` | Single entry point for all NixOS, nix-darwin, and home-manager outputs |
+| `vars.nix` | Shared identity values (name, email, timezone, SSH key) |
+| `modules/` | Modules shared by multiple systems |
+| `workstation/` | Primary NixOS workstation (Lenovo T490s) |
+| `homelab/` | Headless NixOS homelab server (Lenovo X250) |
+| `darwin/` | nix-darwin configuration for a work MacBook |
+| `home/` | home-manager dotfiles shared across Linux and macOS |
+| `agents/` | Harness-agnostic agent skill and agent prompts |
+| `scripts/` | Bootstrap and utility scripts |
+| `docs/` | Research, plans, and reference notes |
 
-## Quick start
+## Restore / apply matrix
 
-### Just the dotfiles
+Run these from the repo root.
 
-If you already have Nix with flakes enabled:
+| System | Flake output | Command |
+|---|---|---|
+| NixOS workstation | `#t490s` | `sudo nixos-rebuild switch --flake .#t490s` |
+| NixOS homelab | `#x250` | `sudo nixos-rebuild switch --flake .#x250` |
+| macOS work laptop | `#eric-macbook` | `darwin-rebuild switch --flake .#eric-macbook` |
+| Home dotfiles (Linux) | `#eric` | `nix run home-manager -- switch --flake .#eric` |
+| Home dotfiles (macOS) | `#eric-darwin` | `nix run home-manager -- switch --flake .#eric-darwin` |
 
-**Linux:**
+See the README in each system directory for hardware notes, opinions, and any
+manual prerequisites.
 
-```bash
-nix run home-manager -- switch --flake github:ericbaukhages/system#eric
-```
-
-**macOS (Apple Silicon):**
-
-```bash
-nix run home-manager -- switch --flake github:ericbaukhages/system#eric-darwin
-```
-
-To apply the local checkout instead of the GitHub version:
-
-```bash
-nix run home-manager -- switch --flake .#eric        # Linux
-nix run home-manager -- switch --flake .#eric-darwin # macOS
-```
-
-### NixOS
-
-On a fresh install, `just` is not yet available. Use the underlying NixOS command first, replacing `<hostname>` with the target host (`t490s` or `x250`):
+## Common recipes
 
 ```bash
-sudo nixos-rebuild switch --flake .#<hostname>
+just rebuild          # apply NixOS workstation config
+just rebuild-homelab  # apply NixOS homelab config
+just darwin           # apply nix-darwin config
+just home             # apply home-manager on Linux
+just home-darwin      # apply home-manager on macOS
+just check            # nix flake check --all-systems
+just fmt              # nix fmt
 ```
 
-After that, `just` is installed and you can use:
+## Node.js
 
-```bash
-just rebuild   # defaults to .#t490s
-```
+Node is managed per-project with [fnm](https://github.com/Schniz/fnm). Projects
+can pin a version with `.nvmrc` or `.node-version`, and `fnm` switches
+automatically on `cd`. Set a default with `fnm default <version>`.
 
-### macOS
+## Trial tools
 
-The flake includes a nix-darwin configuration for `eric-macbook`. First-time setup still requires the nix-darwin installer to create the system daemon; after that, apply the system configuration:
+Experimental CLI tools live in `home/trials/` and are gated by
+`myHome.trials.enable`. Enable them in your home configuration when you want to
+try something, and remove or promote them later.
 
-```bash
-just darwin
-```
+## Agents
 
-And the home-manager dotfiles:
+Agent prompts live in `agents/` and are harness-agnostic. `home/opencode.nix` is
+the OpenCode adapter that installs those prompts into `~/.config/opencode/`. To
+switch harnesses, add a new adapter under `home/` and import it instead.
 
-```bash
-just home-darwin
-```
+## Status
 
-## Making changes
-
-Configs for user-level programs live under `home/`. For example, Neovim settings are in `home/neovim/default.nix` and `home/neovim/init.lua`.
-
-Shared system settings live under `modules/nixos/`. Per-machine settings live under `hosts/<hostname>/`.
-
-To change a setting:
-
-1. Edit the relevant file in `home/`, `modules/nixos/`, or `hosts/`.
-2. Apply the local checkout with the appropriate command:
-
-   ```bash
-   just home        # Linux home-manager
-   just home-darwin # macOS home-manager
-   just rebuild     # NixOS
-   just darwin      # macOS system config
-   ```
-
-These commands must be run from the repo root (where `flake.nix` lives).
-
-> [!NOTE]
-> `just` is included as a system package for NixOS hosts, so it's available after the first rebuild.
-> Until then, you can run recipes with `nix run nixpkgs#just -- <recipe>`.
-
-## Secrets
-
-TODO: decide on sops-nix, agenix, or another secrets management approach.
-
-## TODO
-
-- [ ] Decide on and implement a secrets management approach (sops-nix or agenix)
-- [x] Add a nix-darwin configuration and `mkDarwinConfig` helper in `flake.nix`
-- [ ] Add an ISO installer configuration
-- [ ] Add a `scripts/` directory with bootstrap/installer scripts (e.g. `scripts/install-home` for a one-shot Nix + home-manager setup)
-- [ ] Add CI checks (e.g. `nix flake check`) on push
-
-## Notes
-
-- This is a work in progress. Expect rough edges while the structure settles.
-- Right now the flake targets `nixos-26.05`.
-- Parts of this repository were written or refined with the help of AI coding assistants (e.g. OpenCode, Codex).
+This is a work in progress. The T490s workstation is the primary daily driver;
+the X250 homelab and MacBook configs are in place but may need hardware-specific
+tweaks when first applied.
 
 ## Inspiration
 
-- [chenglab](https://github.com/eh8/chenglab) — a tidy Nix/NixOS multi-machine setup whose `machines/`/`modules/`/`services/` layout and use of `vars.nix` heavily influenced this repo's structure.
+- [chenglab](https://github.com/eh8/chenglab) — tidy multi-machine Nix setup
+  whose layout influenced an earlier version of this repo.
+- [Omarchy](https://omarchy.org/) — opinionated, reference-first approach to
+  personal computing configs.

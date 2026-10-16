@@ -23,7 +23,7 @@ in
     ./neovim
     ./kitty.nix
     ./opencode.nix
-    ./laravel.nix
+    ./trials
   ];
 
   nixpkgs.config.allowUnfreePredicate =
@@ -79,18 +79,5 @@ in
       skip-taskbar = true;
     };
 
-    # Dictation hotkey. This is a work in progress and is not working correctly
-    # yet; the shortcut and script may change before it is considered stable.
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/dictate/"
-      ];
-    };
-
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/dictate" = {
-      name = "Dictate";
-      binding = "<Super><Shift>D";
-      command = "${config.home.homeDirectory}/.nix-profile/bin/dictate";
-    };
   };
 }

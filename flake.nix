@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # CLI tools to try (see docs/plans/cli-tools-to-try.md).
+    # Experimental CLI tools in the trials set (see home/trials/).
     ghgrab = {
       url = "github:abhixdd/ghgrab/v2.0.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,78 +79,6 @@
                   src = leaf;
                   cargoLock.lockFile = leaf + "/Cargo.lock";
                 };
-                todoist = final.buildNpmPackage {
-                  pname = "todoist-cli";
-                  version = "5.4.3";
-                  src = final.fetchFromGitHub {
-                    owner = "Doist";
-                    repo = "todoist-cli";
-                    rev = "v5.4.3";
-                    hash = "sha256-9WKTOmO4NPL1Lmu82FRaSLiBhugfffp/PDks4cfxczM=";
-                  };
-                  npmDepsHash = "sha256-LhzRlfvKkQBfx3K0dS6D0cdrVFEjkqHk+F2lMHRpdbk=";
-                };
-
-                # Wasp CLI ships as an npm wrapper around platform-specific
-                # binaries. We bypass the Node wrapper and call the binary
-                # directly with its data directory.
-                wasp =
-                  let
-                    version = "0.25.0";
-                    platformInfo = {
-                      x86_64-linux = {
-                        name = "linux-x64-glibc";
-                        hash = "sha256-ceM95ZbOdUq+5KBUhxIZb0CBrCWkLemO6iIjzhiHfo4=";
-                      };
-                      aarch64-linux = {
-                        name = "linux-arm64-glibc";
-                        hash = "sha256-IXaAH2gbxcwlDJt3aDHPhaKNiGmhnEqhHqGFYV55p7Y=";
-                      };
-                      x86_64-darwin = {
-                        name = "darwin-x64-unknown";
-                        hash = "sha256-BM7/1y4fX6sZ08miFYluF8n6kK0KqZRsoKlH+TPP39M=";
-                      };
-                      aarch64-darwin = {
-                        name = "darwin-arm64-unknown";
-                        hash = "sha256-EAWK//ropRPQEUmgOTsilD+BGZmRTQhn6DkiKwwayts=";
-                      };
-                    };
-                    selected =
-                      platformInfo.${prev.stdenv.hostPlatform.system}
-                        or (throw "wasp is not supported on ${prev.stdenv.hostPlatform.system}");
-                  in
-                  prev.stdenv.mkDerivation {
-                    pname = "wasp";
-                    inherit version;
-                    src = prev.fetchurl {
-                      url = "https://registry.npmjs.org/@wasp.sh/wasp-cli-${selected.name}/-/wasp-cli-${selected.name}-${version}.tgz";
-                      hash = selected.hash;
-                    };
-                    nativeBuildInputs = [
-                      prev.makeWrapper
-                    ]
-                    ++ prev.lib.optionals prev.stdenv.hostPlatform.isLinux [ prev.autoPatchelfHook ];
-                    buildInputs = prev.lib.optionals prev.stdenv.hostPlatform.isLinux [
-                      prev.zlib
-                      prev.gmp
-                    ];
-                    installPhase = ''
-                      runHook preInstall
-                      mkdir -p $out/bin $out/lib/wasp $out/share/wasp
-                      cp wasp-bin $out/lib/wasp/
-                      cp -r data $out/share/wasp/
-                      makeWrapper $out/lib/wasp/wasp-bin $out/bin/wasp \
-                        --set waspc_datadir $out/share/wasp/data
-                      runHook postInstall
-                    '';
-                    meta = {
-                      description = "Wasp CLI";
-                      homepage = "https://wasp.sh";
-                      license = prev.lib.licenses.mit;
-                      platforms = prev.lib.attrNames platformInfo;
-                      sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
-                    };
-                  };
               })
               tuxedo.overlays.default
               kew.overlays.default
@@ -162,33 +90,30 @@
           extraSpecialArgs = { inherit vars; };
           modules = [ ./home ];
         };
-
-      mkNixOS =
-        host: system:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit vars; };
-          modules = [ ./hosts/${host}/configuration.nix ];
-        };
-
-      mkDarwin =
-        host: system:
-        nix-darwin.lib.darwinSystem {
-          inherit system;
-          specialArgs = { inherit vars; };
-          modules = [ ./hosts/${host}/configuration.nix ];
-        };
     in
     {
       formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
 
       nixosConfigurations = {
-        t490s = mkNixOS "t490s" "x86_64-linux";
-        x250 = mkNixOS "x250" "x86_64-linux";
+        t490s = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit vars; };
+          modules = [ ./workstation/hosts/t490s/configuration.nix ];
+        };
+
+        x250 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit vars; };
+          modules = [ ./homelab/hosts/x250/configuration.nix ];
+        };
       };
 
       darwinConfigurations = {
-        eric-macbook = mkDarwin "eric-macbook" "aarch64-darwin";
+        eric-macbook = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit vars; };
+          modules = [ ./darwin/hosts/eric-macbook/configuration.nix ];
+        };
       };
 
       homeConfigurations = {

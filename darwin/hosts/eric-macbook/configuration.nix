@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./../../modules/darwin/base.nix
+    ../../../modules/darwin/base.nix
   ];
 
   networking.hostName = "eric-macbook";

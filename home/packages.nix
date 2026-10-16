@@ -2,38 +2,28 @@
 
 {
   home.packages = with pkgs; [
-    codex
-    entr
+    # Universal daily command-line tools
     fd
+    fnm
     fzf
     gh
-    ghgrab
     htop
     imagemagick
     jq
     just
-    kew
-    leaf
-
-    # https://github.com/lomirus/live-server (actively maintained Rust rewrite of tapio/live-server)
-    live-server
-
     nerd-fonts.iosevka-term
-    nodejs
     obsidian
-    tuxedo
-    xdg-utils
     ripgrep
     secretspec
     tig
     todoist
     todoist-electron
     tree
+    xdg-utils
+    yt-dlp
+
+    # Editor language servers
     typescript-language-server
     vscode-langservers-extracted
-    wasp
-    whisper-cpp
-    wireplumber
-    yt-dlp
   ];
 }

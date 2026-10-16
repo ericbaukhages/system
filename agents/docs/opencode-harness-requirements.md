@@ -17,7 +17,8 @@ requests.
 
 > **Note (2026-09-19):** The global `development-workflow` skill was removed
 > from OpenCode config. This document is kept as a historical record of the
-> features that would have supported it.
+> features that would have supported it. Related historical docs were later
+> deleted during repo reorganization.
 
 ## Current workarounds
 
@@ -164,7 +165,5 @@ structured way.
 
 ## Related documents
 
-- `docs/reference/development-workflow.md` — reference definition of the
-  workflow (the skill was removed from OpenCode config on 2026-09-19).
-- `docs/feedback/development-workflow.md` — feedback items that motivated these
-  requirements.
+- `development-workflow` — historical skill removed from OpenCode config on
+  2026-09-19; related docs were later deleted during repo reorganization.

@@ -12,7 +12,7 @@ let
   opencodeConfig = {
     "$schema" = "https://opencode.ai/config.json";
 
-    # Global skills directory. Skills are discovered from ./skills/<name>/
+    # Global skills directory. Skills are discovered from ../agents/skills/<name>/
     # (PROMPT.md + default.nix) and emitted to ~/.config/opencode/skills/.
     skills = {
       paths = [
@@ -61,7 +61,7 @@ let
   mkSkill =
     name:
     let
-      dir = ./skills/${name};
+      dir = ../agents/skills/${name};
       meta = import dir;
     in
     {
@@ -81,7 +81,7 @@ let
   mkAgent =
     name:
     let
-      dir = ./agents/${name};
+      dir = ../agents/agents/${name};
       meta = import dir;
     in
     {
@@ -98,8 +98,8 @@ let
       };
     };
 
-  skillFiles = lib.listToAttrs (map mkSkill (discoverDirs ./skills));
-  agentFiles = lib.listToAttrs (map mkAgent (discoverDirs ./agents));
+  skillFiles = lib.listToAttrs (map mkSkill (discoverDirs ../agents/skills));
+  agentFiles = lib.listToAttrs (map mkAgent (discoverDirs ../agents/agents));
 in
 {
   # Install opencode if it is available in the pinned nixpkgs. If it is not yet
