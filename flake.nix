@@ -73,6 +73,66 @@
                 secretspec = nixpkgs-unstable.legacyPackages.${system}.secretspec;
                 yt-dlp = nixpkgs-unstable.legacyPackages.${system}.yt-dlp;
                 ghgrab = ghgrab.packages.${system}.default;
+                opencode =
+                  let
+                    version = "2.0.32";
+                    platform =
+                      {
+                        x86_64-linux = {
+                          name = "linux-x64";
+                          hash = "sha256-ZKH0s4HC0u/BjI12ss45kUF3i0IbVMmLlL6OgIA2Btw=";
+                        };
+                        aarch64-linux = {
+                          name = "linux-arm64";
+                          hash = "sha256-uEkjLsYdm2JNHEieVpWfU5Vm6xT45bKvXFTvI3EYz2M=";
+                        };
+                        x86_64-darwin = {
+                          name = "darwin-x64";
+                          hash = "sha256-7Plc1SLwtI5JL7yL/kvMORZT2g/uaQ/dHSStrck+QvA=";
+                        };
+                        aarch64-darwin = {
+                          name = "darwin-arm64";
+                          hash = "sha256-YtilJWZDspeEI/jpcb3IiW0sE8rAg4DRpd2UbM66Cas=";
+                        };
+                      }
+                      .${system} or (throw "Unsupported system for opencode: ${system}");
+                    isLinux = prev.stdenvNoCC.hostPlatform.isLinux;
+                  in
+                  prev.stdenvNoCC.mkDerivation {
+                    pname = "opencode";
+                    inherit version;
+                    src = prev.fetchurl {
+                      url = "https://registry.npmjs.org/@opencode/cli-${platform.name}/-/cli-${platform.name}-${version}.tgz";
+                      inherit (platform) hash;
+                    };
+                    nativeBuildInputs = prev.lib.optionals isLinux [ prev.patchelf ];
+                    installPhase = ''
+                      runHook preInstall
+                      install -Dm755 bin/opencode $out/bin/opencode
+                      ${prev.lib.optionalString isLinux ''
+                        patchelf \
+                          --set-interpreter ${prev.stdenv.cc.bintools.dynamicLinker} \
+                          --set-rpath ${prev.lib.makeLibraryPath [ prev.glibc ]} \
+                          $out/bin/opencode
+                      ''}
+                      runHook postInstall
+                    '';
+                    doInstallCheck = prev.stdenvNoCC.buildPlatform.canExecute prev.stdenvNoCC.hostPlatform;
+                    nativeInstallCheckInputs = [ prev.versionCheckHook ];
+                    versionCheckProgramArg = "--version";
+                    meta = {
+                      description = "Open source AI coding agent";
+                      homepage = "https://opencode.ai";
+                      license = prev.lib.licenses.mit;
+                      mainProgram = "opencode";
+                      platforms = [
+                        "x86_64-linux"
+                        "aarch64-linux"
+                        "x86_64-darwin"
+                        "aarch64-darwin"
+                      ];
+                    };
+                  };
                 leaf = prev.rustPlatform.buildRustPackage {
                   pname = "leaf";
                   version = "1.28.2";

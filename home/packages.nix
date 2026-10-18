@@ -22,6 +22,9 @@
     xdg-utils
     yt-dlp
 
+    # Desktop applications
+    libreoffice
+
     # Editor language servers
     typescript-language-server
     vscode-langservers-extracted

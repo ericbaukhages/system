@@ -14,42 +14,40 @@ let
 
     # Global skills directory. Skills are discovered from ../agents/skills/<name>/
     # (PROMPT.md + default.nix) and emitted to ~/.config/opencode/skills/.
-    skills = {
-      paths = [
-        "${config.home.homeDirectory}/.config/opencode/skills"
-      ];
-    };
+    skills = [
+      "${config.home.homeDirectory}/.config/opencode/skills"
+    ];
 
     # Optional global instructions file.
     instructions = [
       "${config.home.homeDirectory}/.config/opencode/instructions/global.md"
     ];
 
-    # Enable LSP support (built-in language servers).
-    lsp = true;
+    # Disable built-in update checks; this package is managed by Nix.
+    update = "disable";
 
     # MCP servers.
     mcp = {
-      firefox-devtools = {
-        type = "local";
-        command = [
-          "npx"
-          "-y"
-          "@mozilla/firefox-devtools-mcp@latest"
-          "--headless"
-          "--viewport"
-          "1280x720"
-        ];
-        environment = {
-          START_URL = "about:blank";
+      servers = {
+        firefox-devtools = {
+          type = "local";
+          command = [
+            "npx"
+            "-y"
+            "@mozilla/firefox-devtools-mcp@latest"
+            "--headless"
+            "--viewport"
+            "1280x720"
+          ];
+          environment = {
+            START_URL = "about:blank";
+          };
         };
-        enabled = true;
-      };
 
-      todoist = {
-        type = "remote";
-        url = "https://ai.todoist.net/mcp";
-        enabled = true;
+        todoist = {
+          type = "remote";
+          url = "https://ai.todoist.net/mcp";
+        };
       };
     };
   };
@@ -102,10 +100,8 @@ let
   agentFiles = lib.listToAttrs (map mkAgent (discoverDirs ../agents/agents));
 in
 {
-  # Install opencode if it is available in the pinned nixpkgs. If it is not yet
-  # packaged, manage the binary separately and the config files below will still
-  # be emitted.
-  home.packages = lib.optional (pkgs ? opencode) pkgs.opencode;
+  # Install the OpenCode v2 CLI from the upstream flake overlay.
+  home.packages = [ pkgs.opencode ];
 
   xdg.configFile = {
     "opencode/opencode.json".text = builtins.toJSON opencodeConfig;

@@ -39,5 +39,10 @@ dotfiles with a Nix flake.
 - `home.stateVersion = "26.05"`.
 - `home.sessionVariables.SSH_AUTH_SOCK` points to `~/.1password/agent.sock`.
 - Node.js is managed per-project with `fnm`; projects can pin versions via `.nvmrc` or `.node-version`.
-- New files must be `git add`ed before the flake can see them.
+- New files must be `git add`ed before the flake can see them. In a git-backed
+  flake, `nix flake check` and `nixos-rebuild` evaluate the tree as it exists in
+  Git, not the working directory. Untracked files are ignored even if they are
+  referenced by tracked files, which can cause `just check` to pass while the
+  actual build is missing those files. Always stage new files with `git add -A`
+  before running checks or applying the config.
 - The repo's `AGENTS.md` is the canonical project context for agents.
