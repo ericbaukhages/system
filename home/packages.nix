@@ -24,6 +24,7 @@
 
     # Desktop applications
     libreoffice
+    token-monitor
 
     # Editor language servers
     typescript-language-server

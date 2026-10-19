@@ -133,6 +133,86 @@
                       ];
                     };
                   };
+                token-monitor =
+                  let
+                    version = "0.75.0";
+                    pname = "token-monitor";
+                    isLinux = prev.stdenvNoCC.hostPlatform.isLinux;
+                    isDarwin = prev.stdenvNoCC.hostPlatform.isDarwin;
+                  in
+                  if isLinux then
+                    let
+                      src = prev.fetchurl {
+                        url = "https://github.com/Javis603/token-monitor/releases/download/v${version}/Token-Monitor-${version}.AppImage";
+                        hash = "sha256-UmI7XzvTi0n4KTHwsLkixtrSsJ2vf4M7TyWJJfn2qNk=";
+                      };
+                      appimageContents = prev.appimageTools.extractType2 { inherit pname version src; };
+                    in
+                    prev.appimageTools.wrapType2 {
+                      inherit pname version src;
+                      extraInstallCommands = ''
+                        install -m 444 -D ${appimageContents}/${pname}.desktop $out/share/applications/${pname}.desktop
+                        substituteInPlace $out/share/applications/${pname}.desktop \
+                          --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+                        cp -r ${appimageContents}/usr/share/icons $out/share
+                      '';
+                      meta = {
+                        description = "Desktop widget for tracking token usage, costs, limits, and session activity across AI coding tools";
+                        homepage = "https://github.com/Javis603/token-monitor";
+                        license = prev.lib.licenses.mit;
+                        mainProgram = pname;
+                        platforms = [ "x86_64-linux" ];
+                        sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
+                      };
+                    }
+                  else if isDarwin then
+                    let
+                      platform =
+                        {
+                          aarch64-darwin = {
+                            suffix = "arm64";
+                            hash = "sha256-85r5XSWp+2kgBYn5g1W9u9L+E5R2tWcdM0cKAT6IowE=";
+                          };
+                          x86_64-darwin = {
+                            suffix = "x64";
+                            hash = "sha256-sUqzV57OcBLBbdSm8Dls2iHP1UUKnJMJNdmrIp4uYAs=";
+                          };
+                        }
+                        .${prev.stdenvNoCC.hostPlatform.system}
+                          or (throw "Unsupported system for token-monitor: ${prev.stdenvNoCC.hostPlatform.system}");
+                      src = prev.fetchurl {
+                        url = "https://github.com/Javis603/token-monitor/releases/download/v${version}/Token-Monitor-${version}-${platform.suffix}.dmg";
+                        inherit (platform) hash;
+                      };
+                    in
+                    prev.stdenvNoCC.mkDerivation {
+                      inherit pname version src;
+                      nativeBuildInputs = [
+                        prev.makeWrapper
+                        prev._7zz
+                      ];
+                      sourceRoot = ".";
+                      installPhase = ''
+                        runHook preInstall
+                        mkdir -p $out/Applications $out/bin
+                        appdir=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
+                        cp -R "$appdir" $out/Applications/"Token Monitor.app"
+                        makeWrapper "$out/Applications/Token Monitor.app/Contents/MacOS/Token Monitor" $out/bin/${pname}
+                        runHook postInstall
+                      '';
+                      meta = {
+                        description = "Desktop widget for tracking token usage, costs, limits, and session activity across AI coding tools";
+                        homepage = "https://github.com/Javis603/token-monitor";
+                        license = prev.lib.licenses.mit;
+                        platforms = [
+                          "aarch64-darwin"
+                          "x86_64-darwin"
+                        ];
+                        sourceProvenance = with prev.lib.sourceTypes; [ binaryNativeCode ];
+                      };
+                    }
+                  else
+                    throw "Unsupported system for token-monitor: ${prev.stdenvNoCC.hostPlatform.system}";
                 leaf = prev.rustPlatform.buildRustPackage {
                   pname = "leaf";
                   version = "1.28.2";
