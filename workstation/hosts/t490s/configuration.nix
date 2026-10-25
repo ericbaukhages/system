@@ -7,6 +7,7 @@
     ../../../modules/nixos/base.nix
     ../../modules/nixos/workstation.nix
     ../../modules/nixos/desktop.nix
+    ../../modules/nixos/minecraft.nix
     ../../../modules/nixos/packages.nix
     ../../../modules/nixos/tailscale.nix
   ];
