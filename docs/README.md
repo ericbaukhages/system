@@ -30,6 +30,29 @@ has already been implemented.
 |---|---|---|
 | [The Dendritic Pattern for Nix Configurations](inspiration/dendritic-pattern.md) | proposed | nix, dendritic, flake-parts, import-tree, architecture |
 
+### Research / OpenCode remote development
+
+| Doc | Status | Tags |
+|---|---|---|
+| [OpenCode Session Management](opencode/session-management.md) | proposed | opencode, remote, session, api |
+| [OpenCode Remote Access](opencode/remote-access.md) | proposed | opencode, remote, tailscale, security |
+| [OpenCode Remote Architecture](opencode/architecture.md) | proposed | opencode, architecture, security, remote |
+
+### Research / change provenance
+
+| Doc | Status | Tags |
+|---|---|---|
+| [Change Provenance Overview](change-provenance/overview.md) | proposed | git, provenance, signing, agents, trust |
+| [Change Provenance Trust Model](change-provenance/trust-model.md) | proposed | git, provenance, trust, signing, agents |
+| [Change Provenance Implementation Options](change-provenance/implementation-options.md) | proposed | git, provenance, implementation, signing, agents |
+| [Change Provenance Security and Threat Model](change-provenance/security-and-threat-model.md) | proposed | git, provenance, security, threat-model, signing |
+
+### Architecture
+
+| Doc | Status | Tags |
+|---|---|---|
+| [Remote Development and Change Trust](architecture/remote-development-and-trust.md) | proposed | architecture, opencode, provenance, remote, security |
+
 ### Reference
 
 | Doc | Status | Tags | Notes |
