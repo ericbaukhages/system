@@ -4,9 +4,6 @@ default:
 rebuild:
     sudo nixos-rebuild switch --flake .#t490s
 
-rebuild-homelab:
-    sudo nixos-rebuild switch --flake .#x250
-
 darwin:
     darwin-rebuild switch --flake .#eric-macbook
 

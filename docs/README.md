@@ -16,6 +16,20 @@ has already been implemented.
 | `stable` | A reference or decision we are actively following. |
 | `abandoned` | Decided not to pursue. |
 
+## Next steps and task tracking
+
+This repo is scoped to "client" configurations: the NixOS workstation
+(`workstation/`), the nix-darwin MacBook (`darwin/`), and shared home-manager
+dotfiles (`home/`). Homelab work now lives in its own repo and is not tracked
+here. Specific Todoist task links are omitted because this repository is public.
+
+| Area | Doc |
+|---|---|
+| macOS-style Super key on NixOS/GNOME | [plans/macos-style-super-key.md](plans/macos-style-super-key.md) |
+| OpenCode remote management and change trust | [architecture/remote-development-and-trust.md](architecture/remote-development-and-trust.md), [opencode/session-management.md](opencode/session-management.md), [opencode/remote-access.md](opencode/remote-access.md), [opencode/architecture.md](opencode/architecture.md) |
+| OpenCode TUI clipboard / Shift+Enter under tmux | — |
+| Using Vim alongside OpenCode | — |
+
 ## Docs by category
 
 ### Plans

@@ -160,12 +160,6 @@
           specialArgs = { inherit vars; };
           modules = [ ./workstation/hosts/t490s/configuration.nix ];
         };
-
-        x250 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit vars; };
-          modules = [ ./homelab/hosts/x250/configuration.nix ];
-        };
       };
 
       darwinConfigurations = {

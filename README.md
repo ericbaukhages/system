@@ -14,7 +14,6 @@ on any system.
 | `vars.nix` | Shared identity values (name, email, timezone, SSH key) |
 | `modules/` | Modules shared by multiple systems |
 | `workstation/` | Primary NixOS workstation (Lenovo T490s) |
-| `homelab/` | Headless NixOS homelab server (Lenovo X250) |
 | `darwin/` | nix-darwin configuration for a work MacBook |
 | `home/` | home-manager dotfiles shared across Linux and macOS |
 | `agents/` | Harness-agnostic agent skill and agent prompts |
@@ -28,7 +27,6 @@ Run these from the repo root.
 | System | Flake output | Command |
 |---|---|---|
 | NixOS workstation | `#t490s` | `sudo nixos-rebuild switch --flake .#t490s` |
-| NixOS homelab | `#x250` | `sudo nixos-rebuild switch --flake .#x250` |
 | macOS work laptop | `#eric-macbook` | `darwin-rebuild switch --flake .#eric-macbook` |
 | Home dotfiles (Linux) | `#eric` | `nix run home-manager -- switch --flake .#eric` |
 | Home dotfiles (macOS) | `#eric-darwin` | `nix run home-manager -- switch --flake .#eric-darwin` |
@@ -40,7 +38,6 @@ manual prerequisites.
 
 ```bash
 just rebuild          # apply NixOS workstation config
-just rebuild-homelab  # apply NixOS homelab config
 just darwin           # apply nix-darwin config
 just home             # apply home-manager on Linux
 just home-darwin      # apply home-manager on macOS
@@ -69,8 +66,8 @@ switch harnesses, add a new adapter under `home/` and import it instead.
 ## Status
 
 This is a work in progress. The T490s workstation is the primary daily driver;
-the X250 homelab and MacBook configs are in place but may need hardware-specific
-tweaks when first applied.
+the MacBook config is in place but may need hardware-specific tweaks when first
+applied.
 
 ## Inspiration
 

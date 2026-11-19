@@ -12,12 +12,11 @@ and user dotfiles with home-manager.
 | `modules/nixos/` | NixOS modules shared by multiple hosts. |
 | `modules/darwin/` | nix-darwin modules shared by multiple hosts. |
 | `workstation/` | Primary NixOS workstation configuration (Lenovo T490s). |
-| `homelab/` | Headless NixOS homelab server configuration (Lenovo X250). |
 | `darwin/` | nix-darwin work MacBook configuration. |
 | `home/` | Reusable home-manager modules. Each file is imported by `home/default.nix`. |
 | `agents/` | Harness-agnostic agent skill and agent prompts. |
 | `scripts/` | Bootstrap and utility scripts. |
-| `justfile` | Common recipes: `rebuild`, `rebuild-homelab`, `darwin`, `check`, `home`, `home-darwin`, `fmt`. |
+| `justfile` | Common recipes: `rebuild`, `darwin`, `check`, `home`, `home-darwin`, `fmt`. |
 
 ## Home-manager modules
 
@@ -41,7 +40,6 @@ Run from the repo root (where `flake.nix` lives):
 just home              # apply home-manager for Linux (x86_64-linux)
 just home-darwin       # apply home-manager for macOS (aarch64-darwin)
 just rebuild           # sudo nixos-rebuild switch --flake .#t490s
-just rebuild-homelab   # sudo nixos-rebuild switch --flake .#x250
 just darwin            # darwin-rebuild switch --flake .#eric-macbook
 just check             # nix flake check --all-systems
 just fmt               # nix fmt (uses nixfmt-tree)

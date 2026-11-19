@@ -298,9 +298,6 @@ hosts/
   t490s/
     configuration.nix  # workstation: imports base, workstation, desktop, packages, tailscale
     hardware-configuration.nix
-  x250/
-    configuration.nix  # server/homelab: imports base, server, packages, tailscale, caddy, podman
-    hardware-configuration.nix
   eric-macbook/
     configuration.nix  # nix-darwin: imports modules/darwin/base.nix
 modules/
@@ -310,9 +307,6 @@ modules/
     packages.nix
     tailscale.nix
     workstation.nix
-    server.nix
-    caddy.nix
-    podman.nix
   darwin/
     base.nix
 home/
@@ -358,7 +352,6 @@ home/
       formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
       nixosConfigurations = {
         t490s = mkNixOS "t490s" "x86_64-linux";
-        x250 = mkNixOS "x250" "x86_64-linux";
       };
       darwinConfigurations = {
         eric-macbook = mkDarwin "eric-macbook" "aarch64-darwin";
