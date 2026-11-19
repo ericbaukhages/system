@@ -54,6 +54,15 @@ just fmt               # nix fmt (uses nixfmt-tree)
 - Node.js is managed per-project with `fnm`; projects can pin versions via `.nvmrc` or `.node-version`.
 - The repo is in active development; see `README.md` for the restore matrix and current status.
 
+## Agent workflow
+
+- Agents create an OpenCode-managed worktree for each task or topic. See
+  `docs/opencode/agent-workflow.md`.
+- Work in the worktree on a branch named `agent/<topic>`.
+- Do not commit directly to `main` or push to it.
+- When done, push the branch, open a pull request, and ask the human to merge
+  with a merge commit.
+
 ## Documentation and attribution
 
 - Keep process, design, and learning notes in `docs/`.

@@ -48,6 +48,7 @@ here. Specific Todoist task links are omitted because this repository is public.
 
 | Doc | Status | Tags |
 |---|---|---|
+| [Agent workflow with worktrees](opencode/agent-workflow.md) | draft | opencode, worktrees, workflow, agents, git |
 | [OpenCode Session Management](opencode/session-management.md) | proposed | opencode, remote, session, api |
 | [OpenCode Remote Access](opencode/remote-access.md) | proposed | opencode, remote, tailscale, security |
 | [OpenCode Remote Architecture](opencode/architecture.md) | proposed | opencode, architecture, security, remote |
